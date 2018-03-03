@@ -19,11 +19,12 @@ namespace eHacks_2018
 
         }
 
-        public void CreateLevel(string filename)
+        public void CreateLevel(string filename, List<Texture2D> textures)
         {
             this.rawLevelData = readFile(filename);
 
             this.level = new Level(rawLevelData.name, rawLevelData.size, rawLevelData.gravity, rawLevelData.playerSpawns);
+            this.level.loadThings(textures, rawLevelData.thingNames, rawLevelData.thingPos);
         }
 
         private RawLevelData readFile(string filename)
@@ -57,11 +58,6 @@ namespace eHacks_2018
             }
 
             return rawLevelData;
-        }
-
-        public SpriteBatch loadLevel(SpriteBatch spriteBatch, List<Texture2D> textures)
-        {
-            return this.level.load(spriteBatch, textures, rawLevelData.thingNames, rawLevelData.thingPos);
         }
 
         public Level returnLevel()

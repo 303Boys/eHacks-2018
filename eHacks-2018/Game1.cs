@@ -54,7 +54,8 @@ namespace eHacks_2018
 
             sprites.Add(Content.Load<Texture2D>("simpleBlock"));
 
-            levelLoader.CreateLevel(System.Reflection.Assembly.GetExecutingAssembly().Location + "../../../../../../Levels/level1.level");
+            levelLoader.CreateLevel(System.Reflection.Assembly.GetExecutingAssembly().Location + "../../../../../../Levels/level1.level", sprites);
+            CurrentLevel = levelLoader.returnLevel();
             // TODO: use this.Content to load your game content here
         }
 
@@ -93,8 +94,9 @@ namespace eHacks_2018
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            spriteBatch = levelLoader.loadLevel(spriteBatch, sprites);
-            CurrentLevel = levelLoader.returnLevel();
+            //spriteBatch = levelLoader.loadLevel(spriteBatch, sprites);
+            //CurrentLevel = levelLoader.returnLevel();
+            spriteBatch = CurrentLevel.draw(spriteBatch, sprites);
 
             base.Draw(gameTime);
         }

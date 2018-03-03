@@ -50,10 +50,8 @@ namespace eHacks_2018
             this.players.Add(new Player(playerSpawns[0], new RectangleF(playerSpawns[0].X, playerSpawns[0].Y, 25, 25), "Player1"));
 		}
 
-        public SpriteBatch load(SpriteBatch spriteBatch, List<Texture2D> textures, List<string> thingNames, List<XNAF.Vector2> thingPos)
+        public SpriteBatch draw(SpriteBatch spriteBatch, List<Texture2D> textures)
         {
-            this.thingList = loadThings(textures, thingNames, thingPos);
-
             spriteBatch.Begin();
             spriteBatch.Draw(thingList[0].sprite, thingList[0].getPosition(), XNAF.Color.White);
 			spriteBatch.Draw(players[0].sprite, players[0].getPosition(), XNAF.Color.White);
@@ -62,7 +60,7 @@ namespace eHacks_2018
             return spriteBatch;
         }
 
-        private List<Thing> loadThings(List<Texture2D> textures, List<string> thingNames, List<XNAF.Vector2> thingPos)
+        public void loadThings(List<Texture2D> textures, List<string> thingNames, List<XNAF.Vector2> thingPos)
         {
             thingList = new List<Thing>();
             players[0].sprite = textures[0];
@@ -70,8 +68,6 @@ namespace eHacks_2018
             {
                 thingList.Add(new Thing(thingPos[i], new RectangleF(playerSpawns[0].X, playerSpawns[0].Y, 25, 25), textures[0]));
             }
-
-            return thingList;
         }
 	}
 }
