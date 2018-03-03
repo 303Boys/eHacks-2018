@@ -53,8 +53,14 @@ namespace eHacks_2018
         public SpriteBatch draw(SpriteBatch spriteBatch, List<Texture2D> textures)
         {
             spriteBatch.Begin();
-            spriteBatch.Draw(thingList[0].sprite, thingList[0].getPosition(), XNAF.Color.White);
-			spriteBatch.Draw(players[0].sprite, players[0].getPosition(), XNAF.Color.White);
+            for(int i = 0; i < thingList.Count; i++)
+            {
+                spriteBatch.Draw(thingList[i].sprite, thingList[i].getPosition(), XNAF.Color.White);
+            }
+            for(int i = 0; i < players.Count; i++)
+            {
+                spriteBatch.Draw(players[i].sprite, players[i].getPosition(), XNAF.Color.White);
+            }
             spriteBatch.End();
 
             return spriteBatch;
