@@ -15,6 +15,7 @@ namespace eHacks_2018
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Level CurrentLevel;
+        ReadLevel levelLoader;
         
         public Game1()
         {
@@ -36,7 +37,7 @@ namespace eHacks_2018
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            this.CurrentLevel = new Level();
+            this.levelLoader = new ReadLevel();
 
             base.Initialize();
         }
@@ -51,6 +52,8 @@ namespace eHacks_2018
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             sprites.Add(Content.Load<Texture2D>("simpleBlock"));
+
+            levelLoader.CreateLevel(System.Reflection.Assembly.GetExecutingAssembly().Location + "../../../../../../Levels/level1.level");
             // TODO: use this.Content to load your game content here
         }
 
@@ -89,7 +92,8 @@ namespace eHacks_2018
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            spriteBatch = CurrentLevel.load(spriteBatch, sprites);
+            spriteBatch = levelLoader.loadLevel(spriteBatch, sprites);
+            CurrentLevel = levelLoader.returnLevel();
 
             base.Draw(gameTime);
         }
