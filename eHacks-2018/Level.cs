@@ -66,7 +66,7 @@ namespace eHacks_2018
             players[0].sprite = textures[0];
             for(int i = 0; i < thingNames.Count; i++)
             {
-                thingList.Add(new Thing(thingPos[i], new RectangleF(playerSpawns[0].X, playerSpawns[0].Y, 25, 25), textures[0]));
+				thingList.Add(new Thing(thingPos[i], new RectangleF(thingPos[i].X, thingPos[i].Y, 25, 25), textures[0]));
             }
         }
 	}
