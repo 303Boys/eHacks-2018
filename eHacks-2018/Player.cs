@@ -140,6 +140,10 @@ namespace eHacks_2018
 					coll = true;
 				}
 			}
+			else if (temp.Width == temp.Height && !temp.IsEmpty) 
+			{
+				colbox.Y -= 1;
+			}
 
 			position.X = colbox.X;
 			position.Y = colbox.Y;
