@@ -53,6 +53,7 @@ namespace eHacks_2018
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             sprites.Add(Content.Load<Texture2D>("simpleBlock"));
+			sprites.Add(Content.Load<Texture2D>("basic"));
 
             levelLoader.CreateLevel(System.Reflection.Assembly.GetExecutingAssembly().Location + "../../../../../../Levels/level1.level", sprites);
             CurrentLevel = levelLoader.returnLevel();

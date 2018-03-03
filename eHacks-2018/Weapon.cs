@@ -70,7 +70,7 @@ namespace eHacks_2018
             weight = X;
         }
 
-        public void use()
+        public void use(int direction)
         {
 
         }
@@ -105,7 +105,7 @@ namespace eHacks_2018
 
         protected int maxAmmo;
         protected int curAmmo;
-        protected Projectile ProjectileType;
+        protected Projectile bullet;
         protected int fireRate;
         protected double angle;
 
@@ -113,7 +113,7 @@ namespace eHacks_2018
         {
             maxAmmo = 0;
             curAmmo = maxAmmo;
-           // ProjectileType = ;
+			bullet = new Projectile(position, new RectangleF(position.X, position.Y, 10, 10), "bullet");
             fireRate = 0;
             angle = 0;
         }
@@ -129,7 +129,7 @@ namespace eHacks_2018
         }
         public Projectile GetProjectileType()
         {
-            return ProjectileType;
+            return bullet;
         }
         public int GetfireRate()
         {
@@ -151,7 +151,7 @@ namespace eHacks_2018
         }
         public void SetProjectileType(Projectile X)
         {
-            ProjectileType = X;
+            bullet = X;
         }
         public void SetfireRate(int X)
         {
@@ -161,6 +161,11 @@ namespace eHacks_2018
         {
             angle = X;
         }
+
+		public override void use(int direction)
+		{
+			
+		}
 
     }
 
@@ -172,9 +177,9 @@ namespace eHacks_2018
 
         public Projectile(Vector2 pos, RectangleF rect, string name) : base(pos, rect, name)
         {
-            speed = 0;
-            duration = 0;
-            damage = 0;
+			speed = 80f;
+            duration = 20;
+            damage = 10;
         }
 
         public float Getspeed()

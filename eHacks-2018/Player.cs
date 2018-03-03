@@ -11,6 +11,7 @@ namespace eHacks_2018
 		private float vmax = -360f;
 		public bool grounded; //1 on ground, 0 if else
 		public int facing; //1 facing right, -1 facing left
+		public int prevface;
 		public float hspeed; //horizontal speed
 		public float vspeed; //vertical speed
 		public float accel; //acceleration
@@ -25,7 +26,10 @@ namespace eHacks_2018
 			hspeed = 0f;
 			vspeed = 0f;
 			accel = 0f;
+			prevface = 1;
+			facing = 1;
 			controls = new Controls(1);
+			curWep = new ProjectileWeapon(position, new RectangleF(position.X, position.Y, 30f, 10f), "basic");
 		}//end Player() construction
 
 
@@ -33,7 +37,7 @@ namespace eHacks_2018
 		public void movementCheck(GameTime gameTime, Level level)
 		{
 			controls.movementUpdate();
-
+			prevface = facing;
 			if (controls.left) { haccel = 1.0f; facing = -1; }
 			else if (controls.right) { haccel = 1.0f; facing = 1; }
 			//else { hspeed = 0f; }
@@ -119,6 +123,19 @@ namespace eHacks_2018
 			position.X = colbox.X;
 			position.Y = colbox.Y;
 
+			if (facing == 1) 
+			{ 
+				curWep.position.X = position.X + colbox.Width;
+				curWep.position.Y = position.Y;
+			}
+			if (facing == -1) 
+			{ 
+				curWep.position.X = position.X - curWep.colbox.Width;
+				curWep.position.Y = position.Y;
+			}
+
+
+
 			return coll;
 		}
 
@@ -132,6 +149,7 @@ namespace eHacks_2018
 		public void shoot()
 		{
 			//TODO
+			curWep.use(facing);
 		}
 	}
 }
