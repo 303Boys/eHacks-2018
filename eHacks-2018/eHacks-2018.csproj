@@ -44,6 +44,11 @@
   <ItemGroup>
     <Compile Include="LevelEdit.cs" />
     <Compile Include="Camera.cs" />
+    <Compile Include="GUIElement.cs" />
+    <Compile Include="MainMenu.cs" />
+    <Compile Include="Menu.cs" />
+    <Compile Include="MenuItem.cs" />
+    <Compile Include="MenuManager.cs" />
     <Compile Include="ReadLevel.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
@@ -51,6 +56,7 @@
     <Compile Include="Level.cs" />
     <Compile Include="Thing.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="TitleScreen.cs" />
     <Compile Include="Weapon.cs" />
     <Compile Include="Controls.cs" />
   </ItemGroup>
@@ -113,6 +119,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="app.manifest" />
+    <None Include="Content\MyFont.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Levels\level1.level" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -15,6 +15,7 @@ namespace eHacks_2018
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Level CurrentLevel;
+        MainMenu menu;
         ReadLevel levelLoader;
 
         Camera camera;
@@ -57,6 +58,11 @@ namespace eHacks_2018
             // TODO: Add your initialization logic here
             this.levelLoader = new ReadLevel();
             this.levelEditor = new LevelEdit(false);
+            //camera = new Camera(GraphicsDevice.Viewport);
+            graphics.PreferredBackBufferHeight = 600;
+            graphics.PreferredBackBufferWidth = 800;
+            menu = new MainMenu();
+            IsMouseVisible = true;
 
             camera = new Camera(GraphicsDevice.Viewport);
             base.Initialize();
@@ -70,6 +76,7 @@ namespace eHacks_2018
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            menu.LoadContent(Content, new Size(800, 600));
 
             sprites.Add(Content.Load<Texture2D>("simpleBlock"));
 			sprites.Add(Content.Load<Texture2D>("basic"));
@@ -102,6 +109,8 @@ namespace eHacks_2018
                 Exit();
 
             levelEditor.checkState(this, CurrentLevel, sprites);
+            menu.Update();
+            //levelEditor.checkState(this, CurrentLevel, sprites);
 			// TODO: Add your update logic here
 			//Controls playerOneTest = new Controls();
 
@@ -121,6 +130,9 @@ namespace eHacks_2018
             // TODO: Add your drawing code here
             //spriteBatch = levelLoader.loadLevel(spriteBatch, sprites);
             //CurrentLevel = levelLoader.returnLevel();
+            //spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.transformMatrix);
+            spriteBatch.Begin();
+            menu.Draw(spriteBatch);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.transformMatrix);
             spriteBatch = CurrentLevel.draw(spriteBatch, sprites);
             spriteBatch.End();
