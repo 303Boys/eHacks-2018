@@ -52,7 +52,7 @@ namespace eHacks_2018
 
         public SpriteBatch draw(SpriteBatch spriteBatch, List<Texture2D> textures)
         {
-            spriteBatch.Begin();
+            //spriteBatch.Begin();
             for(int i = 0; i < thingList.Count; i++)
             {
                 spriteBatch.Draw(thingList[i].sprite, thingList[i].getPosition(), XNAF.Color.White);
@@ -61,7 +61,7 @@ namespace eHacks_2018
             {
                 spriteBatch.Draw(players[i].sprite, players[i].getPosition(), XNAF.Color.White);
             }
-            spriteBatch.End();
+            //spriteBatch.End();
 
             return spriteBatch;
         }

@@ -16,7 +16,9 @@ namespace eHacks_2018
         SpriteBatch spriteBatch;
         Level CurrentLevel;
         ReadLevel levelLoader;
-        
+
+        Camera camera;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -38,7 +40,7 @@ namespace eHacks_2018
         {
             // TODO: Add your initialization logic here
             this.levelLoader = new ReadLevel();
-
+            camera = new Camera(GraphicsDevice.Viewport);
 
             base.Initialize();
         }
@@ -78,9 +80,10 @@ namespace eHacks_2018
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-			// TODO: Add your update logic here
-			//Controls playerOneTest = new Controls();
+            // TODO: Add your update logic here
+            //Controls playerOneTest = new Controls();
 
+            camera.camUpdate(gameTime);
 			updatePlayers(gameTime);
 			base.Update(gameTime);
         }
@@ -96,7 +99,9 @@ namespace eHacks_2018
             // TODO: Add your drawing code here
             //spriteBatch = levelLoader.loadLevel(spriteBatch, sprites);
             //CurrentLevel = levelLoader.returnLevel();
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.transformMatrix);
             spriteBatch = CurrentLevel.draw(spriteBatch, sprites);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
