@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace eHacks_2018
 {
@@ -9,7 +10,7 @@ namespace eHacks_2018
     /// </summary>
     public class Game1 : Game
     {
-        Texture2D simpleBlock;
+        List<Texture2D> sprites = new List<Texture2D>();
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -44,8 +45,7 @@ namespace eHacks_2018
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            simpleBlock = Content.Load<Texture2D>("simpleBlock");
-
+            sprites.Add(Content.Load<Texture2D>("simpleBlock"));
             // TODO: use this.Content to load your game content here
         }
 
@@ -82,7 +82,7 @@ namespace eHacks_2018
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            spriteBatch = CurrentLevel.load(spriteBatch, simpleBlock);
+            spriteBatch = CurrentLevel.load(spriteBatch, sprites);
 
             base.Draw(gameTime);
         }
