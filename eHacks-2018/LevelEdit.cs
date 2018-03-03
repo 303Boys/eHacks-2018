@@ -138,7 +138,7 @@ namespace eHacks_2018
         private void dumpLevel(Level level)
         {
             if (enable) {
-                String filename = "\\..\\EditLevel.level";
+                String filename = "/../EditLevel.level";
                 System.Diagnostics.Debug.WriteLine("Saving file to " + System.Reflection.Assembly.GetExecutingAssembly().Location + filename);
                 String file;
 
