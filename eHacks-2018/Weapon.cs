@@ -178,9 +178,10 @@ namespace eHacks_2018
 
         public Projectile(Vector2 pos, RectangleF rect, string name, int direction, Level level) : base(pos, rect, name)
         {
-			speed = 80f * direction;
+			speed = 50f * direction;
             duration = 20;
             damage = 10;
+			colbox = rect;
 			level.thingList.Add(this);
         }
 
@@ -212,6 +213,8 @@ namespace eHacks_2018
 		public void move() 
 		{
 			position.X += speed;
+			colbox.X = position.X;
+			colbox.Y = position.Y;
 		}
 
 

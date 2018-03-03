@@ -32,4 +32,15 @@ namespace eHacks_2018
             return this.position;
         }
 	}
+
+	public class Wall : Thing
+	{
+		public Wall(Vector2 pos, RectangleF rect, Texture2D sprite) : base(pos, rect, sprite)
+		{
+			position = pos;
+			colbox = rect;
+			this.sprite = sprite;
+			spriteName = sprite.Name;
+		}
+	}
 }
