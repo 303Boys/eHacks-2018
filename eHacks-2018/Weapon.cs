@@ -9,6 +9,7 @@ namespace eHacks_2018
     {
 
         //Attributes of Weapon class
+		protected Projectile bullet;
         protected int knockback;
         protected int damage;
         protected int recoil;
@@ -70,9 +71,9 @@ namespace eHacks_2018
             weight = X;
         }
 
-        public void use(int direction)
+        public void use(int facing, Level level)
         {
-
+			bullet = new Projectile(position, new RectangleF(position.X, position.Y, 10, 10), "bullet", facing, level);
         }
 
         int cooldownTimer(int cooldownTime)
@@ -113,7 +114,6 @@ namespace eHacks_2018
         {
             maxAmmo = 0;
             curAmmo = maxAmmo;
-			bullet = new Projectile(position, new RectangleF(position.X, position.Y, 10, 10), "bullet");
             fireRate = 0;
             angle = 0;
         }
@@ -162,9 +162,9 @@ namespace eHacks_2018
             angle = X;
         }
 
-		public override void use(int direction)
+		public new void use(int facing, Level level)
 		{
-			
+			bullet = new Projectile(position, new RectangleF(position.X, position.Y, 10, 10), "bullet", facing, level);
 		}
 
     }
@@ -174,12 +174,14 @@ namespace eHacks_2018
         private float speed;
         private int duration;
         private int damage;
+		private int direction;
 
-        public Projectile(Vector2 pos, RectangleF rect, string name) : base(pos, rect, name)
+        public Projectile(Vector2 pos, RectangleF rect, string name, int direction, Level level) : base(pos, rect, name)
         {
-			speed = 80f;
+			speed = 80f * direction;
             duration = 20;
             damage = 10;
+			level.thingList.Add(this);
         }
 
         public float Getspeed()
@@ -207,6 +209,10 @@ namespace eHacks_2018
         {
             damage = X;
         }
+		public void move() 
+		{
+			position.X += speed;
+		}
 
 
         public void Countdown(int duration)

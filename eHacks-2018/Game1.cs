@@ -26,6 +26,16 @@ namespace eHacks_2018
 		private void updatePlayers(GameTime gameTime)
 		{
 			CurrentLevel.players[0].movementCheck(gameTime, CurrentLevel);
+			foreach (Thing t in CurrentLevel.thingList)
+			{
+				if (t.GetType().Equals(typeof(Projectile))) 
+				{
+					//Projectile p = t as Projectile;
+					//t.GetType().GetProperty("sprite").SetValue(Content.Load<Texture2D>("bullet"), 0);
+					t.sprite = Content.Load<Texture2D>("bullet");
+					t.GetType().GetMethod("move").Invoke(t, null);
+				}
+			}
 		}
 
         /// <summary>
@@ -54,6 +64,7 @@ namespace eHacks_2018
 
             sprites.Add(Content.Load<Texture2D>("simpleBlock"));
 			sprites.Add(Content.Load<Texture2D>("basic"));
+			sprites.Add(Content.Load<Texture2D>("bullet"));
 
             levelLoader.CreateLevel(System.Reflection.Assembly.GetExecutingAssembly().Location + "../../../../../../Levels/level1.level", sprites);
             CurrentLevel = levelLoader.returnLevel();
