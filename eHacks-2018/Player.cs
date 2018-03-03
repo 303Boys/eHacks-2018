@@ -22,14 +22,14 @@ namespace eHacks_2018
 		public Controls controls;
 		public int health;
 
-		public Player(Vector2 pos, RectangleF rect, string name) : base(pos, rect, name)
+		public Player(Vector2 pos, RectangleF rect, string name, int slot) : base(pos, rect, name)
 		{
 			hspeed = 0f;
 			vspeed = 0f;
 			accel = 0f;
 			prevface = 1;
 			facing = 1;
-			controls = new Controls(1);
+			controls = new Controls(slot);
 			shootPressed = false;
 			curWep = new ProjectileWeapon(position, new RectangleF(position.X, position.Y, 30f, 10f), "basic");
 		}//end Player() construction
@@ -56,7 +56,7 @@ namespace eHacks_2018
 			hspeed = haccel * hmax * facing;
 			vspeed = vaccel * vmax;
 			handleMove(gameTime, level);
-			vaccel -= 0.05f;
+			vaccel = vaccel - 0.05f;
 			haccel -= 0.05f;
 			if (vaccel < 0.0f) { vaccel = 0.0f; }
 			if (haccel < 0.0f) { haccel = 0.0f; }
@@ -70,11 +70,21 @@ namespace eHacks_2018
 			colbox.X = position.X;
 			colbox.Y = position.Y;
 
-			for (int i = 0; i < level.thingList.Count; i++) 
+			foreach (Thing t in level.thingList)
 			{
-				if (colCheck(level.thingList[i].colbox))
+				if (t.GetType().Equals(typeof(Wall)))
 				{
-					break;
+					if (colCheck(t.colbox))
+					{
+						break;
+					}
+				}
+				if (t.GetType().Equals(typeof(Projectile)))
+				{
+					if (bulletCheck(t.colbox))
+					{
+						break;
+					}
 				}
 			}
 		}
@@ -141,6 +151,76 @@ namespace eHacks_2018
 			}
 			if (facing == -1) 
 			{ 
+				curWep.position.X = position.X - curWep.colbox.Width;
+				curWep.position.Y = position.Y;
+			}
+
+
+
+			return coll;
+		}
+
+		public bool bulletCheck(RectangleF rect)
+		{
+			bool coll = false;
+			RectangleF temp = RectangleF.Intersect(this.colbox, rect);
+			grounded = false;
+
+			if (temp.Height > temp.Width)
+			{
+				// left/right collision
+				RectangleF temp2 = colbox;
+				temp2.X += 1;
+				temp2 = RectangleF.Intersect(temp2, rect);
+				if (temp2.Width > temp.Width)
+				{
+					//left collision
+					haccel += .20f;
+					//colbox.X = rect.X - colbox.Width;
+					coll = true;
+				}
+				else
+				{
+					//right collision
+					//colbox.X = rect.X + rect.Width;
+					haccel += .20f;
+					coll = true;
+				}
+			}
+			else if (temp.Width > temp.Height && !temp.IsEmpty)
+			{
+				// up/down collision
+				RectangleF temp2 = colbox;
+				temp2.Y += 1;
+				temp2 = RectangleF.Intersect(temp2, rect);
+				if (temp2.Height > temp.Height)
+				{
+					//top collision
+					//colbox.Y = rect.Y - colbox.Height;
+					vaccel -= .20f;
+
+					coll = true;
+					//grounded = true;
+				}
+				else
+				{
+					//bottom collision
+					//colbox.Y = rect.Y + rect.Height;
+					vaccel += .20f;
+					coll = true;
+				}
+			}
+
+			position.X = colbox.X;
+			position.Y = colbox.Y;
+
+			if (facing == 1)
+			{
+				curWep.position.X = position.X + colbox.Width;
+				curWep.position.Y = position.Y;
+			}
+			if (facing == -1)
+			{
 				curWep.position.X = position.X - curWep.colbox.Width;
 				curWep.position.Y = position.Y;
 			}

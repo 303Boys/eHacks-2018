@@ -47,7 +47,8 @@ namespace eHacks_2018
             this.name = name;
             this.size = size;
             this.playerSpawns = playerSpawns;
-            this.players.Add(new Player(playerSpawns[0], new RectangleF(playerSpawns[0].X, playerSpawns[0].Y, 25, 25), "Player1"));
+            this.players.Add(new Player(playerSpawns[0], new RectangleF(playerSpawns[0].X, playerSpawns[0].Y, 25, 25), "Player1", 1));
+			this.players.Add(new Player(playerSpawns[1], new RectangleF(playerSpawns[1].X, playerSpawns[1].Y, 25, 25), "Player2", 2));
 		}
 
         public SpriteBatch draw(SpriteBatch spriteBatch, List<Texture2D> textures)
@@ -69,12 +70,15 @@ namespace eHacks_2018
         public void loadThings(List<Texture2D> textures, List<string> thingNames, List<XNAF.Vector2> thingPos)
         {
             thingList = new List<Thing>();
-            players[0].sprite = textures[0];
+            players[0].sprite = textures[3];
 			players[0].curWep.sprite = textures[1];
+			players[1].sprite = textures[4];
+			players[1].curWep.sprite = textures[1];
 			this.thingList.Add(players[0].curWep);
+			this.thingList.Add(players[1].curWep);
             for(int i = 0; i < thingNames.Count; i++)
             {
-				thingList.Add(new Thing(thingPos[i], new RectangleF(thingPos[i].X, thingPos[i].Y, 25, 25), textures[0]));
+				thingList.Add(new Wall(thingPos[i], new RectangleF(thingPos[i].X, thingPos[i].Y, 25, 25), textures[0]));
             }
         }
 

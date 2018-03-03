@@ -1,3 +1,3 @@
 ﻿The Beginning,512,512,1
-200,0
-simpleBlock,200,400,simpleBlock,250,300,simpleBlock,300,200
+100,0,200,0,300,0,400,0
+simpleBlock,250,400,simpleBlock,275,400,simpleBlock,300,400,simpleBlock,325,400,simpleBlock,350,400
