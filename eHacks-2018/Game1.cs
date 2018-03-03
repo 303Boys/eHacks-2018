@@ -16,6 +16,7 @@ namespace eHacks_2018
         SpriteBatch spriteBatch;
         Level CurrentLevel;
         ReadLevel levelLoader;
+        LevelEdit levelEditor;
         
         public Game1()
         {
@@ -38,7 +39,7 @@ namespace eHacks_2018
         {
             // TODO: Add your initialization logic here
             this.levelLoader = new ReadLevel();
-
+            this.levelEditor = new LevelEdit(false);
 
             base.Initialize();
         }
@@ -54,7 +55,7 @@ namespace eHacks_2018
 
             sprites.Add(Content.Load<Texture2D>("simpleBlock"));
 
-            levelLoader.CreateLevel(System.Reflection.Assembly.GetExecutingAssembly().Location + "../../../../../../Levels/level1.level", sprites);
+            levelLoader.CreateLevel(System.Reflection.Assembly.GetExecutingAssembly().Location + "..\\..\\..\\..\\..\\..\\Levels\\level1.level", sprites);
             CurrentLevel = levelLoader.returnLevel();
             // TODO: use this.Content to load your game content here
         }
@@ -78,10 +79,7 @@ namespace eHacks_2018
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if(Mouse.GetState().LeftButton == ButtonState.Pressed)
-            {
-                CurrentLevel.thingList.Add(new Thing(new Vector2(Mouse.GetState().X, Mouse.GetState().Y), new System.Drawing.RectangleF(Mouse.GetState().X, Mouse.GetState().Y, 25, 25), sprites[0]));
-            }
+            levelEditor.checkState(this, CurrentLevel, sprites);
 			// TODO: Add your update logic here
 			//Controls playerOneTest = new Controls();
 
