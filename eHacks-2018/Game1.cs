@@ -78,6 +78,10 @@ namespace eHacks_2018
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            if(Mouse.GetState().LeftButton == ButtonState.Pressed)
+            {
+                CurrentLevel.thingList.Add(new Thing(new Vector2(Mouse.GetState().X, Mouse.GetState().Y), new System.Drawing.RectangleF(Mouse.GetState().X, Mouse.GetState().Y, 25, 25), sprites[0]));
+            }
 			// TODO: Add your update logic here
 			//Controls playerOneTest = new Controls();
 
