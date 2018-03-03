@@ -20,10 +20,10 @@ namespace eHacks_2018
         public RectangleF cameraRectangle;
 
         public Camera(Viewport currentView) {
-            position = new Vector2(0, 0);
+            position = Vector2.Zero;
             view = currentView;
             zoomValue = 1;
-            cameraRectangle = new RectangleF(position.X, position.Y, view.Width, view.Height);
+            cameraRectangle = new RectangleF(position.X, position.Y, 24, 24);
         }
 
         public void Translate(Vector2 moveVector) {
@@ -87,20 +87,28 @@ namespace eHacks_2018
 
         public void camUpdate(GameTime gameTime, Level level) {
 
-            transformMatrix = Matrix.CreateScale(new Vector3(zoomValue, zoomValue, 0)) * 
-                Matrix.CreateTranslation(new Vector3((-position.X) + 200 ,(-position.Y) + 200, 0));
+            //position = new Vector2(level.players[0].position.X + (level.players[0].sprite.Width / 2) - level.getSize().X / 2,
+            //    level.players[0].position.Y + (level.players[0].sprite.Height / 2) - level.getSize().Y / 2);
+            transformMatrix = Matrix.CreateScale(new Vector3(zoomValue, zoomValue, 0)) *
+            //    Matrix.CreateTranslation(new Vector3(-position.X, -position.Y, 0));
+              Matrix.CreateTranslation(new Vector3(-cameraRectangle.X / 2, -cameraRectangle.Y / 2, 0));
 
-            //position.X = (rightMostX(level) + leftMostX(level)) / 2;
+            //position.X = (rightMostX(level) - (rightMostX(level)) / 2) * zoomValue;
+            position.X = (rightMostX(level) + leftMostX(level)) / 2;
+            //position.X = ((level.getSize().X) / 2) * zoomValue;
+             System.Diagnostics.Debug.Write("Camera X Position: ");
+             System.Diagnostics.Debug.WriteLine(position.X);
+            System.Diagnostics.Debug.WriteLine("Center between Rightmost + Leftmost = ");
 
-            position.X = cameraRectangle.X;
-            // System.Diagnostics.Debug.Write("Camera X Position: ");
-            // System.Diagnostics.Debug.WriteLine(position.X);
+            position.Y = (rightMostY(level) + leftMostY(level)) / 2;
 
-            //position.Y = (rightMostY(level) + leftMostY(level)) / 2;
+            //position.Y = (rightMostY(level)) * zoomValue;
 
-            position.Y = cameraRectangle.Y;
-            // System.Diagnostics.Debug.Write("Camera Y Position: ");
-            // System.Diagnostics.Debug.WriteLine(position.Y);
+           
+
+            //position.Y = ((level.getSize().Y) / 2) * zoomValue;
+             System.Diagnostics.Debug.Write("Camera Y Position: ");
+             System.Diagnostics.Debug.WriteLine(position.Y);
 
             System.Diagnostics.Debug.Write("Leftmost Player Position: ");
             System.Diagnostics.Debug.WriteLine(leftMostX(level)+ " , " + leftMostY(level));
@@ -108,27 +116,20 @@ namespace eHacks_2018
             System.Diagnostics.Debug.Write("Rightmost Player Position: ");
             System.Diagnostics.Debug.WriteLine(rightMostX(level) + " , " + rightMostY(level));
 
-            System.Diagnostics.Debug.WriteLine("Level Y Size:   " + level.getSize().Y);
-            System.Diagnostics.Debug.WriteLine("Rectangle Width:   " + cameraRectangle.Width);
-            System.Diagnostics.Debug.WriteLine("Rectangle Height:   " + cameraRectangle.Height);
-
-            if ((cameraRectangle.Width * (3 * zoomValue)) < (level.getSize().X / 2))
-            {
-                zoomValue += 0.01f;
-            }
-
-            if ((cameraRectangle.Width * (3 * zoomValue)) > (level.getSize().X / 2))
-            {
-                zoomValue -= 0.01f;
-            }
 
 
             cameraRectangle.X = (rightMostX(level) * zoomValue) / 2;
             cameraRectangle.Y = (rightMostY(level) * zoomValue);
-            cameraRectangle.Width = (rightMostX(level) - leftMostX(level));
-            cameraRectangle.Height = (rightMostY(level) - leftMostY(level));
+            //cameraRectangle.Width = (rightMostX(level) - leftMostX(level)) * zoomValue;
+            //cameraRectangle.Height = (rightMostY(level) - leftMostY(level)) * zoomValue;
 
-            
+            if (rightMostY(level) * zoomValue > level.getSize().Y) {
+                zoomValue -= 0.005f;
+            }
+
+            if (rightMostY(level) * zoomValue < level.getSize().Y && zoomValue < 1) {
+                zoomValue += 0.005f;
+            }
 
 
 
@@ -154,9 +155,6 @@ namespace eHacks_2018
                 zoomValue -= 0.1f;
             }
             
-            if (level.players.Count >= 1) {
-
-            }
         }
 
     }
