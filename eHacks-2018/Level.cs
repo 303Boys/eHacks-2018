@@ -14,7 +14,7 @@ namespace eHacks_2018
         public List<Thing> thingList;
         private List<XNAF.Vector2> playerSpawns = new List<XNAF.Vector2>();
         private float gravity { get; set; }
-        private List<Player> players = new List<Player>();
+        public List<Player> players = new List<Player>();
 
 		public Level()
 		{
@@ -22,7 +22,7 @@ namespace eHacks_2018
             this.size = new XNAF.Vector2(512, 512);
             this.playerSpawns.Add(new XNAF.Vector2(0, 0));
             this.gravity = 1;
-            this.players.Add(new Player(playerSpawns[0], new RectangleF(playerSpawns[0].X, playerSpawns[0].Y, 25, 25), "Player1"));
+			this.players.Add(new Player(playerSpawns[0], new RectangleF(playerSpawns[0].X, playerSpawns[0].Y, 25, 25), "player1"));
 		}
 
         public SpriteBatch load(SpriteBatch spriteBatch, List<Texture2D> textures)
@@ -31,6 +31,7 @@ namespace eHacks_2018
 
             spriteBatch.Begin();
             spriteBatch.Draw(thingList[0].sprite, thingList[0].getPosition(), XNAF.Color.White);
+			spriteBatch.Draw(players[0].sprite, players[0].getPosition(), XNAF.Color.White);
             spriteBatch.End();
 
             return spriteBatch;
@@ -39,10 +40,10 @@ namespace eHacks_2018
         private List<Thing> loadThings(List<Texture2D> textures)
         {
             thingList = new List<Thing>();
-
+			players[0].sprite = textures[0];
             for(int i = 0; i < textures.Count; i++)
             {
-                thingList.Add(new Thing(new XNAF.Vector2(20, 0), new RectangleF(playerSpawns[0].X, playerSpawns[0].Y, 25, 25), textures[0]));
+                thingList.Add(new Thing(new XNAF.Vector2(20, 0), new RectangleF(playerSpawns[0].X + 30, playerSpawns[0].Y + 30, 25, 25), textures[0]));
             }
 
             return thingList;

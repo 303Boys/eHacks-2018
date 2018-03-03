@@ -22,6 +22,11 @@ namespace eHacks_2018
             Content.RootDirectory = "Content";
         }
 
+		private void updatePlayers(GameTime gameTime)
+		{
+			CurrentLevel.players[0].movementCheck(gameTime);
+		}
+
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -68,8 +73,9 @@ namespace eHacks_2018
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
-            Controls playerOneTest = new Controls();
+			// TODO: Add your update logic here
+			//Controls playerOneTest = new Controls();
+			updatePlayers(gameTime);
 
             base.Update(gameTime);
         }
