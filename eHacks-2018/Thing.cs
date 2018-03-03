@@ -8,7 +8,7 @@ namespace eHacks_2018
 	public class Thing
 	{
         protected Vector2 position; //Thing's position
-		protected RectangleF colbox; //collision box for Thing
+		public RectangleF colbox; //collision box for Thing
 		public Texture2D sprite;
 		public string spriteName; //name of Thing's sprite
 

@@ -25,7 +25,7 @@ namespace eHacks_2018
 
 		private void updatePlayers(GameTime gameTime)
 		{
-			CurrentLevel.players[0].movementCheck(gameTime);
+			CurrentLevel.players[0].movementCheck(gameTime, CurrentLevel);
 		}
 
         /// <summary>
@@ -38,6 +38,7 @@ namespace eHacks_2018
         {
             // TODO: Add your initialization logic here
             this.levelLoader = new ReadLevel();
+
 
             base.Initialize();
         }
@@ -78,9 +79,9 @@ namespace eHacks_2018
 
 			// TODO: Add your update logic here
 			//Controls playerOneTest = new Controls();
-			updatePlayers(gameTime);
 
-            base.Update(gameTime);
+			updatePlayers(gameTime);
+			base.Update(gameTime);
         }
 
         /// <summary>
