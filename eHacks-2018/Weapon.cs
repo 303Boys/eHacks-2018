@@ -9,6 +9,7 @@ namespace eHacks_2018
     {
 
         //Attributes of Weapon class
+		protected Projectile bullet;
         protected int knockback;
         protected int damage;
         protected int recoil;
@@ -70,9 +71,9 @@ namespace eHacks_2018
             weight = X;
         }
 
-        public void use()
+        public void use(int facing, Level level)
         {
-
+			bullet = new Projectile(position, new RectangleF(position.X, position.Y, 10, 10), "bullet", facing, level);
         }
 
         int cooldownTimer(int cooldownTime)
@@ -105,7 +106,7 @@ namespace eHacks_2018
 
         protected int maxAmmo;
         protected int curAmmo;
-        protected Projectile ProjectileType;
+        protected Projectile bullet;
         protected int fireRate;
         protected double angle;
 
@@ -113,7 +114,6 @@ namespace eHacks_2018
         {
             maxAmmo = 0;
             curAmmo = maxAmmo;
-           // ProjectileType = ;
             fireRate = 0;
             angle = 0;
         }
@@ -129,7 +129,7 @@ namespace eHacks_2018
         }
         public Projectile GetProjectileType()
         {
-            return ProjectileType;
+            return bullet;
         }
         public int GetfireRate()
         {
@@ -151,7 +151,7 @@ namespace eHacks_2018
         }
         public void SetProjectileType(Projectile X)
         {
-            ProjectileType = X;
+            bullet = X;
         }
         public void SetfireRate(int X)
         {
@@ -162,6 +162,11 @@ namespace eHacks_2018
             angle = X;
         }
 
+		public new void use(int facing, Level level)
+		{
+			bullet = new Projectile(position, new RectangleF(position.X, position.Y, 10, 10), "bullet", facing, level);
+		}
+
     }
 
     public class Projectile : Thing
@@ -169,12 +174,14 @@ namespace eHacks_2018
         private float speed;
         private int duration;
         private int damage;
+		private int direction;
 
-        public Projectile(Vector2 pos, RectangleF rect, string name) : base(pos, rect, name)
+        public Projectile(Vector2 pos, RectangleF rect, string name, int direction, Level level) : base(pos, rect, name)
         {
-            speed = 0;
-            duration = 0;
-            damage = 0;
+			speed = 80f * direction;
+            duration = 20;
+            damage = 10;
+			level.thingList.Add(this);
         }
 
         public float Getspeed()
@@ -202,6 +209,10 @@ namespace eHacks_2018
         {
             damage = X;
         }
+		public void move() 
+		{
+			position.X += speed;
+		}
 
 
         public void Countdown(int duration)

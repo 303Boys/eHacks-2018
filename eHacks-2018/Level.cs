@@ -70,6 +70,8 @@ namespace eHacks_2018
         {
             thingList = new List<Thing>();
             players[0].sprite = textures[0];
+			players[0].curWep.sprite = textures[1];
+			this.thingList.Add(players[0].curWep);
             for(int i = 0; i < thingNames.Count; i++)
             {
 				thingList.Add(new Thing(thingPos[i], new RectangleF(thingPos[i].X, thingPos[i].Y, 25, 25), textures[0]));
