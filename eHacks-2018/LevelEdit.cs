@@ -152,8 +152,21 @@ namespace eHacks_2018
 
                 for(int i = 0; i < level.thingList.Count; i++)
                 {
-                    file += level.thingList[i].spriteName + ',' + level.thingList[i].getPosition().X + ',' + level.thingList[i].getPosition().Y + ',';
+                    if (level.thingList[i].GetType().Equals(typeof(Thing)))
+                    {
+                        file += "0" + ',' + level.thingList[i].spriteName + ',' + level.thingList[i].getPosition().X + ',' + level.thingList[i].getPosition().Y + ',';
+                    }
+                    else if (level.thingList[i].GetType().Equals(typeof(Wall)))
+                    {
+                        file += "1" + ',' + level.thingList[i].spriteName + ',' + level.thingList[i].getPosition().X + ',' + level.thingList[i].getPosition().Y + ',';
+                    }
+                    else if (level.thingList[i].GetType().Equals(typeof(Door)))
+                    {
+                        file += "2" + ',' + level.thingList[i].spriteName + ',' + level.thingList[i].getPosition().X + ',' + level.thingList[i].getPosition().Y + ',';
+                    }
                 }
+
+                file += "\ndoor_open";
 
                 System.IO.File.WriteAllText(@System.Reflection.Assembly.GetExecutingAssembly().Location + filename, file);
 

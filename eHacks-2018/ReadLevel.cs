@@ -24,7 +24,7 @@ namespace eHacks_2018
             this.rawLevelData = readFile(filename);
 
             this.level = new Level(rawLevelData.name, rawLevelData.size, rawLevelData.gravity, rawLevelData.playerSpawns);
-            this.level.loadThings(textures, rawLevelData.thingNames, rawLevelData.thingPos);
+            this.level.loadThings(textures, rawLevelData.spriteNames, rawLevelData.thingPos, rawLevelData.thingTypes);
         }
 
         private RawLevelData readFile(string filename)
@@ -49,11 +49,15 @@ namespace eHacks_2018
             //Get and store thing names and positions
             var rawThings = streamReader.ReadLine().Split(',');
 
-            for(int i = 0; i < rawThings.Length; i += 3)
+            for(int i = 0; i < rawThings.Length; i += 4)
             {
-                rawLevelData.thingNames.Add(rawThings[i]);
-                rawLevelData.thingPos.Add(new XNAF.Vector2(float.Parse(rawThings[i + 1]), float.Parse(rawThings[i + 2])));
+                rawLevelData.thingTypes.Add(int.Parse(rawThings[i]));
+                rawLevelData.spriteNames.Add(rawThings[i + 1]);
+                rawLevelData.thingPos.Add(new XNAF.Vector2(float.Parse(rawThings[i + 2]), float.Parse(rawThings[i + 3])));
             }
+
+            var rawDoorName = streamReader.ReadLine().Split(',');
+            rawLevelData.spriteNames.Add(rawDoorName[0]);
 
             return rawLevelData;
         }

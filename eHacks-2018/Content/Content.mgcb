@@ -36,6 +36,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:P1.bmp
+
 #begin basic.bmp
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -84,7 +85,6 @@
 /processorParam:TextureFormat=Color
 /build:P4.bmp
 
-
 #begin bullet.bmp
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -96,4 +96,28 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:bullet.bmp
+
+#begin door_closed.bmp
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,255,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:door_closed.bmp
+
+#begin door_open.bmp
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,255,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:door_open.bmp
 
