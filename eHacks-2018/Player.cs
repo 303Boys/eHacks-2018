@@ -9,7 +9,7 @@ namespace eHacks_2018
 	{
 		private float hmax = 80f;
 		private float vmax = -360f;
-		public bool grounded; //1 on ground, 0 if else
+		public int grounded; //0 on ground, 1 if else
 		public bool shootPressed;
 		public int facing; //1 facing right, -1 facing left
 		public int prevface;
@@ -43,7 +43,7 @@ namespace eHacks_2018
 			if (controls.left) { haccel = 1.0f; facing = -1; }
 			else if (controls.right) { haccel = 1.0f; facing = 1; }
 			//else { hspeed = 0f; }
-			if (controls.jump && grounded) { jump(); }
+			if (controls.jump && grounded == 0) { jump(); }
 			if (controls.shoot && !shootPressed)
 			{
 				curWep.use(facing, level);
@@ -66,7 +66,7 @@ namespace eHacks_2018
 		public void handleMove(GameTime gameTime, Level level) 
 		{ 
 			position.X += hspeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-			position.Y += (vspeed + 160f) * (float)gameTime.ElapsedGameTime.TotalSeconds;
+			position.Y += (vspeed + (160f * grounded)) * (float)gameTime.ElapsedGameTime.TotalSeconds;
 			colbox.X = position.X;
 			colbox.Y = position.Y;
 
@@ -99,7 +99,7 @@ namespace eHacks_2018
 		{
 			bool coll = false;
 			RectangleF temp = RectangleF.Intersect(this.colbox, rect);
-			grounded = false;
+			grounded = 1;
 
 			if (temp.Height > temp.Width && !temp.IsEmpty)
 			{
@@ -120,7 +120,7 @@ namespace eHacks_2018
 					coll = true;
 				}
 			}
-			else if (temp.Width > temp.Height && !temp.IsEmpty)
+			else if (temp.Width > temp.Height)
 			{
 				// up/down collision
 				RectangleF temp2 = colbox;
@@ -131,7 +131,7 @@ namespace eHacks_2018
 					//top collision
 					colbox.Y = rect.Y - colbox.Height;
 					coll = true;
-					grounded = true;
+					grounded = 0;
 				}
 				else
 				{
@@ -164,7 +164,7 @@ namespace eHacks_2018
 		{
 			bool coll = false;
 			RectangleF temp = RectangleF.Intersect(this.colbox, rect);
-			grounded = false;
+			//grounded = false;
 
 			if (temp.Height > temp.Width)
 			{
