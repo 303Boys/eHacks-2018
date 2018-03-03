@@ -63,6 +63,7 @@ namespace eHacks_2018
                 Exit();
 
             // TODO: Add your update logic here
+            Controls playerOneTest = new Controls();
 
             base.Update(gameTime);
         }
