@@ -35,11 +35,11 @@ namespace eHacks_2018
 
 	public class Level
 	{
-        private string name { get; set; }
-        private XNAF.Vector2 size { get; set; }
+        private string name;
+        private XNAF.Vector2 size;
         public List<Thing> thingList;
         private List<XNAF.Vector2> playerSpawns;
-        private float gravity { get; set; }
+        private float gravity;
         public List<Player> players = new List<Player>();
 
 		public Level(string name, XNAF.Vector2 size, float gravity, List<XNAF.Vector2> playerSpawns)
@@ -77,5 +77,25 @@ namespace eHacks_2018
 				thingList.Add(new Thing(thingPos[i], new RectangleF(thingPos[i].X, thingPos[i].Y, 25, 25), textures[0]));
             }
         }
-	}
+
+        public string getName()
+        {
+            return this.name;
+        }
+
+        public XNAF.Vector2 getSize()
+        {
+            return this.size;
+        }
+
+        public float getGravity()
+        {
+            return this.gravity;
+        }
+
+        public List<XNAF.Vector2> getPlayerSpawns()
+        {
+            return this.playerSpawns;
+        }
+    }
 }

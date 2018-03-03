@@ -19,6 +19,8 @@ namespace eHacks_2018
 
         Camera camera;
 
+        LevelEdit levelEditor;
+        
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -50,8 +52,9 @@ namespace eHacks_2018
         {
             // TODO: Add your initialization logic here
             this.levelLoader = new ReadLevel();
-            camera = new Camera(GraphicsDevice.Viewport);
+            this.levelEditor = new LevelEdit(false);
 
+            camera = new Camera(GraphicsDevice.Viewport);
             base.Initialize();
         }
 
@@ -68,7 +71,7 @@ namespace eHacks_2018
 			sprites.Add(Content.Load<Texture2D>("basic"));
 			sprites.Add(Content.Load<Texture2D>("bullet"));
 
-            levelLoader.CreateLevel(System.Reflection.Assembly.GetExecutingAssembly().Location + "../../../../../../Levels/level1.level", sprites);
+            levelLoader.CreateLevel(System.Reflection.Assembly.GetExecutingAssembly().Location + "..\\..\\..\\..\\..\\..\\Levels\\level1.level", sprites);
             CurrentLevel = levelLoader.returnLevel();
             // TODO: use this.Content to load your game content here
         }
@@ -92,8 +95,9 @@ namespace eHacks_2018
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
-            //Controls playerOneTest = new Controls();
+            levelEditor.checkState(this, CurrentLevel, sprites);
+			// TODO: Add your update logic here
+			//Controls playerOneTest = new Controls();
 
             camera.camUpdate(gameTime);
 			updatePlayers(gameTime);
