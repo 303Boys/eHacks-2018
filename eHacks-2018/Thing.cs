@@ -7,7 +7,7 @@ namespace eHacks_2018
 {
 	public class Thing
 	{
-		protected Vector2 position; //Thing's position
+        protected Vector2 position; //Thing's position
 		protected RectangleF colbox; //collision box for Thing
 		public Texture2D sprite;
 		public string spriteName; //name of Thing's sprite
@@ -18,5 +18,18 @@ namespace eHacks_2018
 			colbox = rect;
 			spriteName = name;
 		}//end Thing constructor
+
+        public Thing(Vector2 pos, RectangleF rect, Texture2D sprite)
+        {
+            position = pos;
+            colbox = rect;
+            this.sprite = sprite;
+            spriteName = sprite.Name;
+        }
+
+        public Vector2 getPosition()
+        {
+            return this.position;
+        }
 	}
 }
