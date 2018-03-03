@@ -10,14 +10,19 @@ namespace eHacks_2018
     /// </summary>
     public class Game1 : Game
     {
+        List<Texture2D> sprites = new List<Texture2D>();
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        MainMenu menu;
         Level CurrentLevel;
+        MainMenu menu;
         ReadLevel levelLoader;
 
+      //  Camera camera;
+
+       // LevelEdit levelEditor;
+        
         public Game1()
-            :base()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -25,7 +30,21 @@ namespace eHacks_2018
 
 		private void updatePlayers(GameTime gameTime)
 		{
-			CurrentLevel.players[0].movementCheck(gameTime, CurrentLevel);
+			foreach (Player p in CurrentLevel.players) 
+			{
+				p.movementCheck(gameTime, CurrentLevel);
+			}
+			//CurrentLevel.players[0].movementCheck(gameTime, CurrentLevel);
+			foreach (Thing t in CurrentLevel.thingList)
+			{
+				if (t.GetType().Equals(typeof(Projectile))) 
+				{
+					//Projectile p = t as Projectile;
+					//t.GetType().GetProperty("sprite").SetValue(Content.Load<Texture2D>("bullet"), 0);
+					t.sprite = Content.Load<Texture2D>("bullet");
+					t.GetType().GetMethod("move").Invoke(t, null);
+				}
+			}
 		}
 
         /// <summary>
@@ -38,9 +57,14 @@ namespace eHacks_2018
         {
             // TODO: Add your initialization logic here
             this.levelLoader = new ReadLevel();
+            // this.levelEditor = new LevelEdit(false);
+
+            //camera = new Camera(GraphicsDevice.Viewport);
             graphics.PreferredBackBufferHeight = 600;
             graphics.PreferredBackBufferWidth = 800;
             menu = new MainMenu();
+            IsMouseVisible = true;
+
             base.Initialize();
         }
 
@@ -52,10 +76,13 @@ namespace eHacks_2018
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            menu.LoadContent(Content,new Size(800,600));
+            menu.LoadContent(Content, new Size(800, 600));
 
             sprites.Add(Content.Load<Texture2D>("simpleBlock"));
+		//	sprites.Add(Content.Load<Texture2D>("basic"));
+			//sprites.Add(Content.Load<Texture2D>("bullet"));
+			//sprites.Add(Content.Load<Texture2D>("P1"));
+			//sprites.Add(Content.Load<Texture2D>("P2"));
 
             levelLoader.CreateLevel(System.Reflection.Assembly.GetExecutingAssembly().Location + "../../../../../../Levels/level1.level", sprites);
             CurrentLevel = levelLoader.returnLevel();
@@ -81,11 +108,12 @@ namespace eHacks_2018
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             menu.Update();
+            //levelEditor.checkState(this, CurrentLevel, sprites);
+			// TODO: Add your update logic here
+			//Controls playerOneTest = new Controls();
 
-            // TODO: Add your update logic here
-            //Controls playerOneTest = new Controls();
-
-            updatePlayers(gameTime);
+            //camera.camUpdate(gameTime);
+			updatePlayers(gameTime);
 			base.Update(gameTime);
         }
 
@@ -100,15 +128,11 @@ namespace eHacks_2018
             // TODO: Add your drawing code here
             //spriteBatch = levelLoader.loadLevel(spriteBatch, sprites);
             //CurrentLevel = levelLoader.returnLevel();
-
+            //spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.transformMatrix);
             spriteBatch.Begin();
-
             menu.Draw(spriteBatch);
-
-            spriteBatch.End();
-
-
             spriteBatch = CurrentLevel.draw(spriteBatch, sprites);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
