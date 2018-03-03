@@ -11,6 +11,7 @@ namespace eHacks_2018
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Controls playerOneControls = new Controls();
         
         public Game1()
         {
@@ -63,8 +64,7 @@ namespace eHacks_2018
                 Exit();
 
             // TODO: Add your update logic here
-            Controls playerOneTest = new Controls();
-
+            playerOneControls.movementUpdate();
             base.Update(gameTime);
         }
 
