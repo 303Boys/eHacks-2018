@@ -47,7 +47,10 @@ namespace eHacks_2018
 
 			for (int i = 0; i < level.thingList.Count; i++) 
 			{
-				colCheck(level.thingList[i].colbox);
+				if (colCheck(level.thingList[i].colbox))
+				{
+					break;
+				}
 			}
 		}
 
@@ -57,9 +60,9 @@ namespace eHacks_2018
 			//grounded = true;
 		}
 
-		public void colCheck(RectangleF rect)
+		public bool colCheck(RectangleF rect)
 		{
-			//TODO
+			bool coll = false;
 			RectangleF temp = RectangleF.Intersect(this.colbox, rect);
 			grounded = false;
 
@@ -73,14 +76,16 @@ namespace eHacks_2018
 				{
 					//left collision
 					colbox.X = rect.X - colbox.Width;
+					coll = true;
 				}
 				else
 				{
 					//right collision
 					colbox.X = rect.X + rect.Width;
+					coll = true;
 				}
 			}
-			else if (temp.Width > temp.Height && !temp.IsEmpty) 
+			else if (temp.Width > temp.Height && !temp.IsEmpty)
 			{
 				// up/down collision
 				RectangleF temp2 = colbox;
@@ -90,18 +95,21 @@ namespace eHacks_2018
 				{
 					//top collision
 					colbox.Y = rect.Y - colbox.Height;
+					coll = true;
 					grounded = true;
 				}
 				else
 				{
 					//bottom collision
 					colbox.Y = rect.Y + rect.Height;
+					coll = true;
 				}
 			}
 
 			position.X = colbox.X;
 			position.Y = colbox.Y;
 
+			return coll;
 		}
 
 		public void jump()
