@@ -4,18 +4,22 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 namespace eHacks_2018
 {
-	public class Weapon : Thing
-	{
+    public class Weapon : Thing
+    {
         protected int knockback;
         protected int damage;
         protected int recoil;
         protected int cooldownTime;
         protected int weight;
 
-		public Weapon()
-		{
-
-		}
+        public Weapon()
+        {
+            knockback = 0;
+            damage = 0;
+            recoil = 0;
+            cooldownTime = 0;
+            weight = 0;
+        }
 
         public void use()
         {
@@ -24,7 +28,7 @@ namespace eHacks_2018
 
         int cooldownTimer(int cooldownTime)
         {
-            while(cooldownTime > 0) { cooldownTime--; }
+            while (cooldownTime > 0) { cooldownTime--; }
             return 0;
         }
     }
@@ -35,7 +39,7 @@ namespace eHacks_2018
 
         public MeleeWeapon()
         {
-
+            swingRate = 0;
         }
     }
 
@@ -50,7 +54,11 @@ namespace eHacks_2018
 
         public ProjectileWeapon()
         {
-
+            maxAmmo = 0;
+            curAmmo = maxAmmo;
+           // ProjectileType = ;
+            fireRate = 0;
+            angle = 0;
         }
     }
 
@@ -62,12 +70,14 @@ namespace eHacks_2018
 
         public Projectile()
         {
-
+            speed = 0;
+            duration = 0;
+            damage = 0;
         }
 
         public void Countdown(int duration)
         {
-            while(duration >= 0) {duration--;}
+            while (duration >= 0) { duration--; }
         }
     }
 }
