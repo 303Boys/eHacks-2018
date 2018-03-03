@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -15,10 +16,11 @@ namespace eHacks_2018
 		public Controls controls;
 		public int health;
 
-		public Player()
+		public Player(Vector2 pos, RectangleF rect, string name) : base(pos, rect, name)
 		{
-			position = new Vector2(10, 10);
-
+			hspeed = 0f;
+			vspeed = 0f;
+			accel = 0f;
 		}//end Player() construction
 
 		public void groundCheck()
@@ -35,6 +37,7 @@ namespace eHacks_2018
 		public void jump()
 		{
 			//TODO
+			vspeed += 20f;
 		}
 
 
