@@ -71,7 +71,7 @@ namespace eHacks_2018
 			sprites.Add(Content.Load<Texture2D>("basic"));
 			sprites.Add(Content.Load<Texture2D>("bullet"));
 
-            levelLoader.CreateLevel(System.Reflection.Assembly.GetExecutingAssembly().Location + "..\\..\\..\\..\\..\\..\\Levels\\level1.level", sprites);
+            levelLoader.CreateLevel(System.Reflection.Assembly.GetExecutingAssembly().Location + "../../../../../../Levels/level1.level", sprites);
             CurrentLevel = levelLoader.returnLevel();
             // TODO: use this.Content to load your game content here
         }
