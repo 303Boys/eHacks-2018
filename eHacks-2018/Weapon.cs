@@ -73,7 +73,16 @@ namespace eHacks_2018
 
         public void use(int facing, Level level)
         {
-			bullet = new Projectile(position, new RectangleF(position.X, position.Y, 10, 10), "bullet", facing, level);
+			Vector2 temp = position;
+			if (facing == -1)
+			{
+				temp.X -= 30f;
+			}
+			else if (facing == 1)
+			{
+				temp.X += 30f;
+			}
+			bullet = new Projectile(temp, new RectangleF(temp.X, temp.Y, 10, 10), "bullet", facing, level);
         }
 
         int cooldownTimer(int cooldownTime)
@@ -164,24 +173,37 @@ namespace eHacks_2018
 
 		public new void use(int facing, Level level)
 		{
-			bullet = new Projectile(position, new RectangleF(position.X, position.Y, 10, 10), "bullet", facing, level);
+			Vector2 temp = position;
+			if (facing == -1)
+			{
+				temp.X -= 30f;
+			}
+			else if (facing == 1)
+			{
+				temp.X += 30f;
+			}
+			bullet = new Projectile(temp, new RectangleF(temp.X, temp.Y, 10, 10), "bullet", facing, level);
 		}
 
     }
 
     public class Projectile : Thing
     {
-        private float speed;
+        public float speed;
         private int duration;
         private int damage;
 		private int direction;
+		public bool isActive;
 
         public Projectile(Vector2 pos, RectangleF rect, string name, int direction, Level level) : base(pos, rect, name)
         {
-			speed = 50f * direction;
+			//position.X = rect.X;
+			//position.Y = rect.Y;
+			speed = 10f * direction;
             duration = 20;
             damage = 10;
 			colbox = rect;
+			isActive = true;
 			level.thingList.Add(this);
         }
 
@@ -212,11 +234,17 @@ namespace eHacks_2018
         }
 		public void move() 
 		{
-			position.X += speed;
-			colbox.X = position.X;
-			colbox.Y = position.Y;
+			if (isActive)
+			{
+				position.X += speed;
+				colbox.X = position.X;
+				colbox.Y = position.Y;
+			}
 		}
-
+		public void setActive()
+		{
+			isActive = false;
+		}
 
         public void Countdown(int duration)
         {
