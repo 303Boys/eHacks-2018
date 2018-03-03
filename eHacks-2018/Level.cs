@@ -23,5 +23,14 @@ namespace eHacks_2018
             this.gravity = 1;
             this.players.Add(new Player());
 		}
+
+        public SpriteBatch load(SpriteBatch spriteBatch, Texture2D block)
+        {
+            spriteBatch.Begin();
+            spriteBatch.Draw(block, new Vector2(20, 0), Color.White);
+            spriteBatch.End();
+
+            return spriteBatch;
+        }
 	}
 }
