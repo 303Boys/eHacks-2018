@@ -10,14 +10,14 @@ namespace eHacks_2018
     /// </summary>
     public class Game1 : Game
     {
-        List<Texture2D> sprites = new List<Texture2D>();
-
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        MainMenu menu;
         Level CurrentLevel;
         ReadLevel levelLoader;
-        
+
         public Game1()
+            :base()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -38,8 +38,9 @@ namespace eHacks_2018
         {
             // TODO: Add your initialization logic here
             this.levelLoader = new ReadLevel();
-
-
+            graphics.PreferredBackBufferHeight = 600;
+            graphics.PreferredBackBufferWidth = 800;
+            menu = new MainMenu();
             base.Initialize();
         }
 
@@ -51,6 +52,8 @@ namespace eHacks_2018
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            menu.LoadContent(Content,new Size(800,600));
 
             sprites.Add(Content.Load<Texture2D>("simpleBlock"));
 
@@ -77,11 +80,12 @@ namespace eHacks_2018
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            menu.Update();
 
-			// TODO: Add your update logic here
-			//Controls playerOneTest = new Controls();
+            // TODO: Add your update logic here
+            //Controls playerOneTest = new Controls();
 
-			updatePlayers(gameTime);
+            updatePlayers(gameTime);
 			base.Update(gameTime);
         }
 
@@ -96,6 +100,14 @@ namespace eHacks_2018
             // TODO: Add your drawing code here
             //spriteBatch = levelLoader.loadLevel(spriteBatch, sprites);
             //CurrentLevel = levelLoader.returnLevel();
+
+            spriteBatch.Begin();
+
+            menu.Draw(spriteBatch);
+
+            spriteBatch.End();
+
+
             spriteBatch = CurrentLevel.draw(spriteBatch, sprites);
 
             base.Draw(gameTime);
