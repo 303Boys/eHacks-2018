@@ -43,7 +43,7 @@ namespace eHacks_2018
 			players[0].sprite = textures[0];
             for(int i = 0; i < textures.Count; i++)
             {
-                thingList.Add(new Thing(new XNAF.Vector2(20, 0), new RectangleF(playerSpawns[0].X + 30, playerSpawns[0].Y + 30, 25, 25), textures[0]));
+                thingList.Add(new Thing(new XNAF.Vector2(125, 300), new RectangleF(125, 300, 25, 25), textures[0]));
             }
 
             return thingList;
