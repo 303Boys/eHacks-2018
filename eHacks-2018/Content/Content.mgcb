@@ -121,3 +121,6 @@
 /processorParam:TextureFormat=Color
 /build:door_open.bmp
 
+#begin Levels/level1.level
+/copy:Levels/level1.level
+
