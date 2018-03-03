@@ -148,6 +148,7 @@ namespace eHacks_2018
                 {
                     file += level.getPlayerSpawns()[i].X + "," + level.getPlayerSpawns()[i].Y + ",";
                 }
+                file = file.Substring(0, file.Length - 1);
                 file += '\n';
 
                 for(int i = 0; i < level.thingList.Count; i++)
@@ -165,6 +166,7 @@ namespace eHacks_2018
                         file += "2" + ',' + level.thingList[i].spriteName + ',' + level.thingList[i].getPosition().X + ',' + level.thingList[i].getPosition().Y + ',';
                     }
                 }
+                file = file.Substring(0, file.Length - 1);
 
                 file += "\ndoor_open";
 
