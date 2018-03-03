@@ -17,6 +17,14 @@ namespace eHacks_2018
 
         public void movementUpdate(){
             firstPlayerInitial = GamePad.GetState(PlayerIndex.One);
+            if (firstPlayer.IsButtonDown(Buttons.DPadLeft)){
+                System.Diagnostics.Debug.WriteLine("Player 1 moves left.");
+            }
+            
+            if (firstPlayer.IsButtonDown(Buttons.DPadRight)){
+                System.Diagnostics.Debug.WriteLine("Player 1 moves right.");
+            }            
+
             if (firstPlayer.IsButtonDown(Buttons.A)){
                 System.Diagnostics.Debug.WriteLine("Player 1 presses A.");
             }
