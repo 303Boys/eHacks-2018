@@ -4,64 +4,85 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 namespace eHacks_2018
 {
-	public class Controls
-	{
-        private GamePadState firstPlayer; 
-        private GamePadState firstPlayerInitial;
-		public bool left;
-		public bool right;
-		public bool jump;
-		public bool shoot;
+    public class Controls
+    {
+        private GamePadState playerCurrentState;
+        private GamePadState playerInitialState;
+        private PlayerIndex currentPlayer;
+        public bool left;
+        public bool right;
+        public bool jump;
+        public bool shoot;
 
-        public Controls()
-		{
-        firstPlayer = GamePad.GetState(PlayerIndex.One);
-        //movementUpdate();
+        public Controls(int playerNum)
+        {
+            switch (playerNum)
+            {
+                case 1: currentPlayer = PlayerIndex.One; break;
+                case 2: currentPlayer = PlayerIndex.Two; break;
+                case 3: currentPlayer = PlayerIndex.Three; break;
+                case 4: currentPlayer = PlayerIndex.Four; break;
+            }
+            playerCurrentState = GamePad.GetState(currentPlayer);
+            //movementUpdate();
 
-		}
+        }
 
         public void movementUpdate()
-		{
-            firstPlayerInitial = GamePad.GetState(PlayerIndex.One);
-			if (firstPlayer.IsButtonDown(Buttons.DPadLeft))
-			{
-				left = true;
-				System.Diagnostics.Debug.WriteLine("Player 1 moves left.");
-			}
-			else { left = false; }
-
-			if (firstPlayer.IsButtonDown(Buttons.DPadRight))
-			{
-				right = true;
-				System.Diagnostics.Debug.WriteLine("Player 1 moves right.");
-			}
-			else { right = false;}
-
-			if (firstPlayer.IsButtonDown(Buttons.A))
-			{
-				jump = true;
-				System.Diagnostics.Debug.WriteLine("Player 1 presses A.");
-			}
-			else { jump = false; }
-
-			if (firstPlayer.IsButtonDown(Buttons.X))
-			{
-				shoot = true;
-				System.Diagnostics.Debug.WriteLine("Player 1 presses X.");
-			}
-			else { shoot = false; }
-
-            if (firstPlayer.IsButtonDown(Buttons.B))
-			{
-                System.Diagnostics.Debug.WriteLine("Player 1 presses B.");
+        {
+            playerInitialState = GamePad.GetState(currentPlayer);
+            if (playerCurrentState.IsButtonDown(Buttons.DPadLeft))
+            {
+                left = true;
+                System.Diagnostics.Debug.WriteLine("Player moves left.");
+                System.Diagnostics.Debug.Write("    Player Number: ");
+                System.Diagnostics.Debug.WriteLine(currentPlayer);
             }
-            
-            if (firstPlayer.IsButtonDown(Buttons.Y))
-			{
-                System.Diagnostics.Debug.WriteLine("Player 1 presses Y.");
+            else { left = false; }
+
+            if (playerCurrentState.IsButtonDown(Buttons.DPadRight))
+            {
+                right = true;
+                System.Diagnostics.Debug.WriteLine("Player moves right.");
+                System.Diagnostics.Debug.Write("    Player Number: ");
+                System.Diagnostics.Debug.WriteLine(currentPlayer);
             }
-            
-            firstPlayer = firstPlayerInitial;
+            else { right = false; }
+
+            if (playerCurrentState.IsButtonDown(Buttons.A))
+            {
+                jump = true;
+                System.Diagnostics.Debug.WriteLine("Player presses A.");
+                System.Diagnostics.Debug.Write("    Player Number: ");
+                System.Diagnostics.Debug.WriteLine(currentPlayer);
             }
-	}
+            else { jump = false; }
+
+            if (playerCurrentState.IsButtonDown(Buttons.X))
+            {
+                shoot = true;
+                System.Diagnostics.Debug.WriteLine("Player presses X.");
+                System.Diagnostics.Debug.Write("    Player Number: ");
+                System.Diagnostics.Debug.WriteLine(currentPlayer);
+            }
+            else { shoot = false; }
+
+            if (playerCurrentState.IsButtonDown(Buttons.B))
+            {
+                System.Diagnostics.Debug.WriteLine("Player presses B.");
+                System.Diagnostics.Debug.Write("    Player Number: ");
+                System.Diagnostics.Debug.WriteLine(currentPlayer);
+            }
+
+            if (playerCurrentState.IsButtonDown(Buttons.Y))
+            {
+                System.Diagnostics.Debug.WriteLine("Player presses Y.");
+                System.Diagnostics.Debug.Write("    Player Number: ");
+                System.Diagnostics.Debug.WriteLine(currentPlayer);
+            }
+
+            playerCurrentState = playerInitialState;
+        }
+    }
 }
+

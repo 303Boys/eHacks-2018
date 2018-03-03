@@ -21,7 +21,7 @@ namespace eHacks_2018
 			hspeed = 0f;
 			vspeed = 0f;
 			accel = 0f;
-			controls = new Controls();
+			controls = new Controls(1);
 		}//end Player() construction
 
 
