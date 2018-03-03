@@ -25,16 +25,21 @@ namespace eHacks_2018
     }
     class MainMenu
     {
-        enum GameState { mainMenu, enterName, inGame }
-        GameState gameState;
+        public enum GameState { mainMenu, enterName, inGame }
+        public GameState gameState;
         private string name = string.Empty;
         private bool caps;
         private List<List<GUIElement>> menus;
         private Keys[] lastPressedKeys = new Keys[1];
         SpriteFont sf;
+        ReadLevel levelLoader;
+        Game1 master;
+        List<Texture2D> sprites;
 
-        public MainMenu()
+        public MainMenu(ReadLevel levelLoader, Game1 master)
         {
+            this.levelLoader = levelLoader;
+            this.master = master;
             //Adds lists of GUI elements to the menu list
             menus = new List<List<GUIElement>>
             {   //MainMenu
@@ -134,6 +139,8 @@ namespace eHacks_2018
         {
             if (element == "play")//PlayButton
             {
+                levelLoader.CreateLevel(System.Reflection.Assembly.GetExecutingAssembly().Location + "../../Content/Levels/level1.level", sprites);
+                master.recieveLevel(levelLoader.returnLevel());
                 gameState = GameState.inGame;
             }
             if (element == "nameBtn")//EnterName button
@@ -205,6 +212,9 @@ namespace eHacks_2018
             }
         }
 
-
+        public void recieveSprites(List<Texture2D> sprites)
+        {
+            this.sprites = sprites;
+        }
     }
 }
