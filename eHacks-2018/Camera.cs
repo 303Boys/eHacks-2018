@@ -23,7 +23,7 @@ namespace eHacks_2018
             position = Vector2.Zero;
             view = currentView;
             zoomValue = 1;
-            cameraRectangle = new RectangleF(position.X, position.Y, 24, 24);
+            cameraRectangle = new RectangleF(position.X, position.Y, view.Width / 2, view.Height / 2);
         }
 
         public void Translate(Vector2 moveVector) {
@@ -123,12 +123,10 @@ namespace eHacks_2018
             //cameraRectangle.Width = (rightMostX(level) - leftMostX(level)) * zoomValue;
             //cameraRectangle.Height = (rightMostY(level) - leftMostY(level)) * zoomValue;
 
-            if (rightMostY(level) * zoomValue > level.getSize().Y) {
-                zoomValue -= 0.005f;
-            }
-
-            if (rightMostY(level) * zoomValue < level.getSize().Y && zoomValue < 1) {
-                zoomValue += 0.005f;
+            if ((rightMostY(level) - leftMostX(level)) * zoomValue > level.getSize().Y) {
+                zoomValue -= 0.0025f;
+            } else if ((rightMostY(level) - leftMostX(level)) * zoomValue < level.getSize().Y && zoomValue < 1) {
+                zoomValue += 0.0025f;
             }
 
 
