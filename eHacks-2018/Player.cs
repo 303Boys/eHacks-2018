@@ -156,8 +156,8 @@ namespace eHacks_2018
 			RectangleF temp = colbox;
 			temp.Height += 2;
 			//temp = RectangleF.Intersect(colbox, rect);
-			PointF tempPoint;
-			PointF tempPoint2;
+			PointF tempPoint =  new PointF();
+			PointF tempPoint2 = new PointF();
 			tempPoint.X = temp.X;
 			tempPoint.Y = temp.Y + temp.Height;
 			tempPoint2.X = temp.X + temp.Width;
