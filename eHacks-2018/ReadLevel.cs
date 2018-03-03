@@ -32,29 +32,27 @@ namespace eHacks_2018
             RawLevelData rawLevelData;
 
             StreamReader streamReader = new StreamReader(filename, Encoding.UTF8);
-            //Get and store metadata
-            string rawMetaData = streamReader.ReadLine();
-            var MetaData = rawMetaData.Split(',');
 
-            rawLevelData = new RawLevelData(MetaData[0], new XNAF.Vector2(float.Parse(MetaData[1]), float.Parse(MetaData[2])), float.Parse(MetaData[3]));
+            //Get and store metadata
+            var rawMetaData = streamReader.ReadLine().Split(',');
+
+            rawLevelData = new RawLevelData(rawMetaData[0], new XNAF.Vector2(float.Parse(rawMetaData[1]), float.Parse(rawMetaData[2])), float.Parse(rawMetaData[3]));
 
             //Get and store player spawn points
-            String rawPlayerSpawns = streamReader.ReadLine();
-            var playerSpawns = rawPlayerSpawns.Split(',');
+            var rawPlayerSpawns = streamReader.ReadLine().Split(',');
 
-            for(int i = 0; i < playerSpawns.Length; i += 2)
+            for(int i = 0; i < rawPlayerSpawns.Length; i += 2)
             {
-                rawLevelData.playerSpawns.Add(new XNAF.Vector2(float.Parse(playerSpawns[i]), float.Parse(playerSpawns[i + 1])));
+                rawLevelData.playerSpawns.Add(new XNAF.Vector2(float.Parse(rawPlayerSpawns[i]), float.Parse(rawPlayerSpawns[i + 1])));
             }
 
             //Get and store thing names and positions
-            String rawThings = streamReader.ReadLine();
-            var things = rawThings.Split(',');
+            var rawThings = streamReader.ReadLine().Split(',');
 
-            for(int i = 0; i < things.Length; i += 3)
+            for(int i = 0; i < rawThings.Length; i += 3)
             {
-                rawLevelData.thingNames.Add(things[i]);
-                rawLevelData.thingPos.Add(new XNAF.Vector2(float.Parse(things[i + 1]), float.Parse(things[i + 2])));
+                rawLevelData.thingNames.Add(rawThings[i]);
+                rawLevelData.thingPos.Add(new XNAF.Vector2(float.Parse(rawThings[i + 1]), float.Parse(rawThings[i + 2])));
             }
 
             return rawLevelData;
