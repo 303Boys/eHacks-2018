@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -16,7 +17,7 @@ namespace eHacks_2018
 
 
         //Constructor for Weapon class
-        public Weapon()
+        public Weapon(Vector2 pos, RectangleF rect, string name) : base(pos, rect, name)
         {
             knockback = 0;
             damage = 0;
@@ -85,7 +86,7 @@ namespace eHacks_2018
     {
         protected int swingRate;
 
-        public MeleeWeapon()
+        public MeleeWeapon(Vector2 pos, RectangleF rect, string name) : base(pos, rect, name)
         {
             swingRate = 0;
         }
@@ -108,7 +109,7 @@ namespace eHacks_2018
         protected int fireRate;
         protected double angle;
 
-        public ProjectileWeapon()
+        public ProjectileWeapon(Vector2 pos, RectangleF rect, string name) : base(pos, rect, name)
         {
             maxAmmo = 0;
             curAmmo = maxAmmo;
@@ -169,7 +170,7 @@ namespace eHacks_2018
         private int duration;
         private int damage;
 
-        public Projectile()
+        public Projectile(Vector2 pos, RectangleF rect, string name) : base(pos, rect, name)
         {
             speed = 0;
             duration = 0;
