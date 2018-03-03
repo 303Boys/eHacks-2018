@@ -82,11 +82,11 @@ namespace eHacks_2018
 			vspeed = vaccel * vmax;
 			handleMove(gameTime, level);
 			handleMove(gameTime, level);
-			vaccel = vaccel + 0.25f;
+			vaccel = vaccel + level.gravity;
 			//haccel -= 0.05f;
-			if (vaccel > 4.0f) 
+			if (vaccel > 5.0f) 
 			{ 
-				vaccel = 4.0f; 
+				vaccel = 5.0f; 
 			}
 			if (haccel < -0.05f) //if traveling left
 			{

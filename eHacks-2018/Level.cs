@@ -42,7 +42,7 @@ namespace eHacks_2018
         private XNAF.Vector2 size;
         public List<Thing> thingList;
         private List<XNAF.Vector2> playerSpawns;
-        private float gravity;
+        public float gravity;
         public List<Player> players = new List<Player>();
 
 		public Level(string name, XNAF.Vector2 size, float gravity, List<XNAF.Vector2> playerSpawns)
@@ -52,6 +52,7 @@ namespace eHacks_2018
             this.playerSpawns = playerSpawns;
             this.players.Add(new Player(playerSpawns[0], new RectangleF(playerSpawns[0].X, playerSpawns[0].Y, 25, 25), "Player1", 1));
 			this.players.Add(new Player(playerSpawns[1], new RectangleF(playerSpawns[1].X, playerSpawns[1].Y, 25, 25), "Player2", 2));
+			this.gravity = gravity;
 		}
 
         public SpriteBatch draw(SpriteBatch spriteBatch, List<Texture2D> textures)
