@@ -9,8 +9,11 @@ namespace eHacks_2018
     /// </summary>
     public class Game1 : Game
     {
+        Texture2D simpleBlock;
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Level CurrentLevel;
         
         public Game1()
         {
@@ -27,6 +30,7 @@ namespace eHacks_2018
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            this.CurrentLevel = new Level();
 
             base.Initialize();
         }
@@ -39,6 +43,8 @@ namespace eHacks_2018
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            simpleBlock = Content.Load<Texture2D>("simpleBlock");
 
             // TODO: use this.Content to load your game content here
         }
@@ -76,6 +82,7 @@ namespace eHacks_2018
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            spriteBatch = CurrentLevel.load(spriteBatch, simpleBlock);
 
             base.Draw(gameTime);
         }
