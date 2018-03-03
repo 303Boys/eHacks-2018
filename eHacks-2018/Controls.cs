@@ -27,6 +27,7 @@ namespace eHacks_2018
 
             if (firstPlayer.IsButtonDown(Buttons.A)){
                 System.Diagnostics.Debug.WriteLine("Player 1 presses A.");
+                System.Diagnostics.Debug.WriteLine(PlayerIndex.One);
             }
             
             if (firstPlayer.IsButtonDown(Buttons.X) && firstPlayerInitial.Buttons.X == ButtonState.Released){
