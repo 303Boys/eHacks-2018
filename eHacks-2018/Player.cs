@@ -7,11 +7,15 @@ namespace eHacks_2018
 {
 	public class Player : Thing
 	{
+		private float hmax = 80f;
+		private float vmax = -360f;
 		public bool grounded; //1 on ground, 0 if else
-		public bool facing; //0 facing right, 1 facing left
+		public int facing; //1 facing right, -1 facing left
 		public float hspeed; //horizontal speed
 		public float vspeed; //vertical speed
 		public float accel; //acceleration
+		public float haccel; //acceleration
+		public float vaccel; //acceleration
 		public Weapon curWep;
 		public Controls controls;
 		public int health;
@@ -30,18 +34,24 @@ namespace eHacks_2018
 		{
 			controls.movementUpdate();
 
-			if (controls.left) { hspeed = -50f; }
-			else if (controls.right) { hspeed = 50f; }
-			else { hspeed = 0f; }
+			if (controls.left) { haccel = 1.0f; facing = -1; }
+			else if (controls.right) { haccel = 1.0f; facing = 1; }
+			//else { hspeed = 0f; }
 			if (controls.jump && grounded) { jump(); }
+			hspeed = haccel * hmax * facing;
+			vspeed = vaccel * vmax;
 			handleMove(gameTime, level);
+			vaccel -= 0.05f;
+			haccel -= 0.05f;
+			if (vaccel < 0.0f) { vaccel = 0.0f; }
+			if (haccel < 0.0f) { haccel = 0.0f; }
 
 		}
 
 		public void handleMove(GameTime gameTime, Level level) 
 		{ 
 			position.X += hspeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-			position.Y += (vspeed + 80f) * (float)gameTime.ElapsedGameTime.TotalSeconds;
+			position.Y += (vspeed + 160f) * (float)gameTime.ElapsedGameTime.TotalSeconds;
 			colbox.X = position.X;
 			colbox.Y = position.Y;
 
@@ -115,7 +125,7 @@ namespace eHacks_2018
 		public void jump()
 		{
 			//TODO
-			vspeed = -300f;
+			vaccel = 1.0f;
 		}
 
 
