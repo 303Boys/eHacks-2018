@@ -22,17 +22,20 @@ namespace eHacks_2018
 		public Weapon curWep;
 		public Controls controls;
 		public int health;
+		public int slot;
 
 		public Player(Vector2 pos, RectangleF rect, string name, int slot) : base(pos, rect, name)
 		{
+			health = 100;
 			hspeed = 0f;
 			vspeed = 0f;
 			accel = 0f;
 			prevface = 1;
 			facing = 1;
+			this.slot = slot;
 			controls = new Controls(slot);
 			shootPressed = false;
-			curWep = new Shooty(position, new RectangleF(position.X, position.Y, 30f, 10f), "shooty");
+			curWep = new Shooty(position, new RectangleF(position.X, position.Y, 30f, 10f), "shooty", this.slot);
 		}//end Player() construction
 
 
@@ -133,25 +136,32 @@ namespace eHacks_2018
 				{
 					if (bullCheck(t.colbox))
 					{
-						//var temp = t.GetType().GetCustomAttributes(false);
-						//Projectile temp2 = (Projectile)temp[0];
 						Projectile p = t as Projectile;
-						if (p.speed < 0)
+						if (p.speed < 0 && p.isActive == true && p.owner != slot)
 						{
 							haccel -= p.knockback;
 							direction = -1;
 						}
-						else 
+						else if(p.speed > 0 && p.isActive == true && p.owner != slot)
 						{ 
 							haccel += p.knockback;
 							direction = 1;
 						}
-						t.GetType().GetMethod("setActive").Invoke(t, null );
+						if (p.isActive == true && p.owner != slot) 
+						{ 
+							health -= p.damage; 
+							t.GetType().GetMethod("setActive").Invoke(t, null);
+						}
+
+						//t.GetType().GetMethod("setActive").Invoke(t, null );
 						//level.thingList[i] = null;
 						break;
 					}
 				}
-				//i++;
+			}
+			if (position.X > 2000 || position.Y > 2000)
+			{
+				health = 0;
 			}
 		}
 
@@ -197,7 +207,9 @@ namespace eHacks_2018
 			if (rect.Contains(colbox.X+(colbox.Width/2),colbox.Y+(colbox.Height/2)))
 			{
 				//failsafe for when a player is stuck in a block
-				colbox.Y = rect.Y - colbox.Height;
+				//colbox.Y = rect.Y - colbox.Height;
+				//vaccel = 0;
+				//grounded = 0;
 			}
 			if (temp.Height > temp.Width && !temp.IsEmpty)
 			{
@@ -347,6 +359,14 @@ namespace eHacks_2018
 
 		public void jump()
 		{
+            switch (this.slot)
+            {
+                case 1: Sounds.returnSound("Jump").Play(); break;
+                case 2: Sounds.returnSound("Jump2").Play(); break;
+                case 3: Sounds.returnSound("Jump3").Play(); break;
+                case 4: Sounds.returnSound("Jump4").Play(); break;
+            }
+            Sounds.returnSound("Jump").Play();
 			vaccel = -6.0f;
 			grounded = 1;
 		}
@@ -354,8 +374,9 @@ namespace eHacks_2018
 
 		public void shoot(Level level)
 		{
-			//TODO
-			Shooty s = curWep as Shooty;
+            Sounds.returnSound("Shoot").Play();
+            //TODO
+            Shooty s = curWep as Shooty;
 			s.use(facing, level);
 			shootPressed = true;
 			haccel += (s.recoil / 4) * (-facing) ;

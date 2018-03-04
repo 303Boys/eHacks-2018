@@ -24,7 +24,6 @@ namespace eHacks_2018
                 case 4: currentPlayer = PlayerIndex.Four; break;
             }
             playerCurrentState = GamePad.GetState(currentPlayer);
-            //movementUpdate();
 
         }
 

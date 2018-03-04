@@ -11,6 +11,7 @@ namespace eHacks_2018
     public class Game1 : Game
     {
         List<Texture2D> sprites = new List<Texture2D>();
+        List<Microsoft.Xna.Framework.Audio.SoundEffect> sounds = new List<Microsoft.Xna.Framework.Audio.SoundEffect>();
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -36,6 +37,11 @@ namespace eHacks_2018
                 foreach (Player p in CurrentLevel.players)
                 {
                     p.movementCheck(gameTime, CurrentLevel);
+					if (p.health <= 0)
+					{
+                        Sounds.returnSound("Explosion").Play();
+						p.isActive = false;
+					}
                 }
                 //CurrentLevel.players[0].movementCheck(gameTime, CurrentLevel);
                 foreach (Thing t in CurrentLevel.thingList)
@@ -61,6 +67,14 @@ namespace eHacks_2018
 					CurrentLevel.thingList.Remove(CurrentLevel.thingList[i]);
 				}
 			}
+			for (int i = 0; i < CurrentLevel.players.Count; i++)
+			{
+				if (CurrentLevel.players[i].isActive == false)
+				{
+					CurrentLevel.players[i] = null;
+					CurrentLevel.players.Remove(CurrentLevel.players[i]);
+				}
+			}
 		}
 
         /// <summary>
@@ -77,6 +91,8 @@ namespace eHacks_2018
             //camera = new Camera(GraphicsDevice.Viewport);
             graphics.PreferredBackBufferHeight = 600;
             graphics.PreferredBackBufferWidth = 800;
+            graphics.IsFullScreen = true;
+            graphics.ApplyChanges();
             menu = new MainMenu(this.levelLoader, this);
             IsMouseVisible = true;
 			listLoaded = false;
@@ -100,8 +116,12 @@ namespace eHacks_2018
 			sprites.Add(Content.Load<Texture2D>("bullet"));
 			sprites.Add(Content.Load<Texture2D>("P1"));
 			sprites.Add(Content.Load<Texture2D>("P2"));
+            sprites.Add(Content.Load<Texture2D>("P3"));
+            sprites.Add(Content.Load<Texture2D>("P4"));
             sprites.Add(Content.Load<Texture2D>("door_closed"));
             sprites.Add(Content.Load<Texture2D>("door_open"));
+
+            Sounds.readSoundFiles(this);
 
             menu.recieveSprites(sprites);
             // TODO: use this.Content to load your game content here
@@ -125,6 +145,12 @@ namespace eHacks_2018
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            if (GamePad.GetState(PlayerIndex.One).Buttons.RightShoulder == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Q))
+            {
+                levelLoader.CreateLevel(System.Reflection.Assembly.GetExecutingAssembly().Location + "../../Content/Levels/level1.level", sprites);
+                CurrentLevel = levelLoader.returnLevel();
+            }
 
             levelEditor.checkState(this, CurrentLevel, sprites);
             menu.Update();

@@ -54,6 +54,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Level.cs" />
+    <Compile Include="Sounds.cs" />
     <Compile Include="Thing.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="TitleScreen.cs" />
