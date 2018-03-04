@@ -180,7 +180,8 @@ namespace eHacks_2018
 					}
 				}
 			}
-			if (position.X > 2000 || position.Y > 2000)
+			Vector2 levlim = level.getSize();
+			if (position.X > levlim.X * 2.5 || position.Y > levlim.Y * 2)
 			{
 				health = 0;
 			}
