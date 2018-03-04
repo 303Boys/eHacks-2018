@@ -22,7 +22,7 @@ namespace eHacks_2018
 				temp.X += 30f;
 			}
 			bullet = new Projectile(temp, new RectangleF(temp.X, temp.Y, 10, 10),
-									"bullet", facing, 2f, 70, 1, level);
+									"bullet", facing, 2f, 70, 50, level);
 		}
 
 	}

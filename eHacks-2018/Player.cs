@@ -22,14 +22,17 @@ namespace eHacks_2018
 		public Weapon curWep;
 		public Controls controls;
 		public int health;
+		public int slot;
 
 		public Player(Vector2 pos, RectangleF rect, string name, int slot) : base(pos, rect, name)
 		{
+			health = 100;
 			hspeed = 0f;
 			vspeed = 0f;
 			accel = 0f;
 			prevface = 1;
 			facing = 1;
+			this.slot = slot;
 			controls = new Controls(slot);
 			shootPressed = false;
 			curWep = new Shooty(position, new RectangleF(position.X, position.Y, 30f, 10f), "shooty");
@@ -133,8 +136,6 @@ namespace eHacks_2018
 				{
 					if (bullCheck(t.colbox))
 					{
-						//var temp = t.GetType().GetCustomAttributes(false);
-						//Projectile temp2 = (Projectile)temp[0];
 						Projectile p = t as Projectile;
 						if (p.speed < 0)
 						{
@@ -146,12 +147,17 @@ namespace eHacks_2018
 							haccel += p.knockback;
 							direction = 1;
 						}
+						if (p.isActive == true) { health -= p.damage; }
+
 						t.GetType().GetMethod("setActive").Invoke(t, null );
 						//level.thingList[i] = null;
 						break;
 					}
 				}
-				//i++;
+			}
+			if (position.X > 2000 || position.Y > 2000)
+			{
+				health = 0;
 			}
 		}
 
@@ -197,7 +203,9 @@ namespace eHacks_2018
 			if (rect.Contains(colbox.X+(colbox.Width/2),colbox.Y+(colbox.Height/2)))
 			{
 				//failsafe for when a player is stuck in a block
-				colbox.Y = rect.Y - colbox.Height;
+				//colbox.Y = rect.Y - colbox.Height;
+				//vaccel = 0;
+				//grounded = 0;
 			}
 			if (temp.Height > temp.Width && !temp.IsEmpty)
 			{

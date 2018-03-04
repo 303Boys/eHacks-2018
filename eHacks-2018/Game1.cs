@@ -36,6 +36,10 @@ namespace eHacks_2018
                 foreach (Player p in CurrentLevel.players)
                 {
                     p.movementCheck(gameTime, CurrentLevel);
+					if (p.health <= 0)
+					{
+						p.isActive = false;
+					}
                 }
                 //CurrentLevel.players[0].movementCheck(gameTime, CurrentLevel);
                 foreach (Thing t in CurrentLevel.thingList)
@@ -59,6 +63,14 @@ namespace eHacks_2018
 				{
 					CurrentLevel.thingList[i] = null;
 					CurrentLevel.thingList.Remove(CurrentLevel.thingList[i]);
+				}
+			}
+			for (int i = 0; i < CurrentLevel.players.Count; i++)
+			{
+				if (CurrentLevel.players[i].isActive == false)
+				{
+					CurrentLevel.players[i] = null;
+					CurrentLevel.players.Remove(CurrentLevel.players[i]);
 				}
 			}
 		}

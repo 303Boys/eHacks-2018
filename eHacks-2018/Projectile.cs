@@ -6,10 +6,10 @@ namespace eHacks_2018
 	public class Projectile : Thing
 	{
 		public float speed;
-		public int knockback;
-		private int duration;
-		private int damage;
-		private int direction;
+		public float knockback;
+		public int duration;
+		public int damage;
+		public int direction;
 
 		public Projectile(Vector2 pos, RectangleF rect, string name, 
 		                  int direction, float spd, int dur, int dmg, Level level) : base(pos, rect, name)
@@ -17,7 +17,7 @@ namespace eHacks_2018
 			speed = spd * direction;
 			duration = dur;
 			damage = dmg;
-			knockback = dmg;
+			knockback = 1 / 2f;
 			colbox = rect;
 			isActive = true;
 			level.thingList.Add(this);
