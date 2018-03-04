@@ -15,7 +15,12 @@ namespace eHacks_2018
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Level CurrentLevel;
+        MainMenu menu;
         ReadLevel levelLoader;
+
+        Camera camera;
+
+        LevelEdit levelEditor;
         
         public Game1()
         {
@@ -25,17 +30,24 @@ namespace eHacks_2018
 
 		private void updatePlayers(GameTime gameTime)
 		{
-			CurrentLevel.players[0].movementCheck(gameTime, CurrentLevel);
-			foreach (Thing t in CurrentLevel.thingList)
-			{
-				if (t.GetType().Equals(typeof(Projectile))) 
-				{
-					//Projectile p = t as Projectile;
-					//t.GetType().GetProperty("sprite").SetValue(Content.Load<Texture2D>("bullet"), 0);
-					t.sprite = Content.Load<Texture2D>("bullet");
-					t.GetType().GetMethod("move").Invoke(t, null);
-				}
-			}
+            if(menu.gameState == MainMenu.GameState.inGame)
+            {
+                foreach (Player p in CurrentLevel.players)
+                {
+                    p.movementCheck(gameTime, CurrentLevel);
+                }
+                //CurrentLevel.players[0].movementCheck(gameTime, CurrentLevel);
+                foreach (Thing t in CurrentLevel.thingList)
+                {
+                    if (t.GetType().Equals(typeof(Projectile)))
+                    {
+                        //Projectile p = t as Projectile;
+                        //t.GetType().GetProperty("sprite").SetValue(Content.Load<Texture2D>("bullet"), 0);
+                        t.sprite = Content.Load<Texture2D>("bullet");
+                        t.GetType().GetMethod("move").Invoke(t, null);
+                    }
+                }
+            }
 		}
 
         /// <summary>
@@ -48,8 +60,14 @@ namespace eHacks_2018
         {
             // TODO: Add your initialization logic here
             this.levelLoader = new ReadLevel();
+            this.levelEditor = new LevelEdit(false);
+            //camera = new Camera(GraphicsDevice.Viewport);
+            graphics.PreferredBackBufferHeight = 600;
+            graphics.PreferredBackBufferWidth = 800;
+            menu = new MainMenu(this.levelLoader, this);
+            IsMouseVisible = true;
 
-
+            camera = new Camera(GraphicsDevice.Viewport);
             base.Initialize();
         }
 
@@ -61,13 +79,17 @@ namespace eHacks_2018
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            menu.LoadContent(Content, new Size(800, 600));
 
             sprites.Add(Content.Load<Texture2D>("simpleBlock"));
 			sprites.Add(Content.Load<Texture2D>("basic"));
 			sprites.Add(Content.Load<Texture2D>("bullet"));
+			sprites.Add(Content.Load<Texture2D>("P1"));
+			sprites.Add(Content.Load<Texture2D>("P2"));
+            sprites.Add(Content.Load<Texture2D>("door_closed"));
+            sprites.Add(Content.Load<Texture2D>("door_open"));
 
-            levelLoader.CreateLevel(System.Reflection.Assembly.GetExecutingAssembly().Location + "../../../../../../Levels/level1.level", sprites);
-            CurrentLevel = levelLoader.returnLevel();
+            menu.recieveSprites(sprites);
             // TODO: use this.Content to load your game content here
         }
 
@@ -90,9 +112,13 @@ namespace eHacks_2018
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            levelEditor.checkState(this, CurrentLevel, sprites);
+            menu.Update();
+            //levelEditor.checkState(this, CurrentLevel, sprites);
 			// TODO: Add your update logic here
 			//Controls playerOneTest = new Controls();
 
+            camera.camUpdate(gameTime, CurrentLevel);
 			updatePlayers(gameTime);
 			base.Update(gameTime);
         }
@@ -108,9 +134,23 @@ namespace eHacks_2018
             // TODO: Add your drawing code here
             //spriteBatch = levelLoader.loadLevel(spriteBatch, sprites);
             //CurrentLevel = levelLoader.returnLevel();
-            spriteBatch = CurrentLevel.draw(spriteBatch, sprites);
+            //spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.transformMatrix);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.transformMatrix);
+            //spriteBatch.Begin();
+            menu.Draw(spriteBatch);
+            //spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.transformMatrix);
+            if (menu.gameState == MainMenu.GameState.inGame)
+            {
+                spriteBatch = CurrentLevel.draw(spriteBatch, sprites);
+            }
+            spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        public void recieveLevel(Level level)
+        {
+            this.CurrentLevel = level;
         }
     }
 }
