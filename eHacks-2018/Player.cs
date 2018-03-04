@@ -149,6 +149,7 @@ namespace eHacks_2018
 						}
 						if (p.isActive == true && p.owner != slot) 
 						{
+                            controls.vibrate();
                             Sounds.returnSound("Hit").Play();
 							health -= p.damage; 
 							t.GetType().GetMethod("setActive").Invoke(t, null);

@@ -82,6 +82,14 @@ namespace eHacks_2018
 
             playerCurrentState = playerInitialState;
         }
+
+        public void vibrate()
+        {
+            for(int i = 0; i < 10; i++)
+            {
+                GamePad.SetVibration(currentPlayer, 10f, 10f);
+            }
+        }
     }
 }
 
