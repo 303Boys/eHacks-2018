@@ -7,7 +7,7 @@ namespace eHacks_2018
 {
 	public class Player : Thing
 	{
-		private float hmax = 80f;
+		private float hmax = 300f;
 		private float vmax = 80f;
 		public int grounded; //0 on ground, 1 if else
 		public bool shootPressed;
@@ -32,7 +32,7 @@ namespace eHacks_2018
 			facing = 1;
 			controls = new Controls(slot);
 			shootPressed = false;
-			curWep = new ProjectileWeapon(position, new RectangleF(position.X, position.Y, 30f, 10f), "basic");
+			curWep = new Shooty(position, new RectangleF(position.X, position.Y, 30f, 10f), "shooty");
 		}//end Player() construction
 
 
@@ -45,7 +45,7 @@ namespace eHacks_2018
 			{
 				if (haccel > -1.0f)
 				{
-					haccel -= 0.3f;
+					haccel -= 0.4f;
 					if (haccel < -1.0f)
 					{
 						haccel = -1.0f;
@@ -58,7 +58,7 @@ namespace eHacks_2018
 			{ 
 				if (haccel < 1.0f)
 				{
-					haccel += 0.3f;
+					haccel += 0.4f;
 					if (haccel > 1.0f)
 					{
 						haccel = 1.0f;
@@ -71,8 +71,7 @@ namespace eHacks_2018
 			if (controls.jump && grounded == 0) { jump(); }
 			if (controls.shoot && !shootPressed)
 			{
-				curWep.use(facing, level);
-				shootPressed = true;
+				shoot(level);
 			}
 			else if (shootPressed && !controls.shoot) 
 			{
@@ -80,10 +79,10 @@ namespace eHacks_2018
 			}
 			hspeed = haccel * hmax;
 			vspeed = vaccel * vmax;
-			handleMove(gameTime, level);
-			handleMove(gameTime, level);
-			handleMove(gameTime, level);
-			handleMove(gameTime, level);
+			handleMove(gameTime, level, 4);
+			handleMove(gameTime, level, 4);
+			handleMove(gameTime, level, 4);
+			handleMove(gameTime, level, 4);
 			vaccel = vaccel + level.gravity;
 			//haccel -= 0.05f;
 			if (vaccel > 5.0f) 
@@ -106,10 +105,10 @@ namespace eHacks_2018
 
 		}
 
-		public void handleMove(GameTime gameTime, Level level) 
-		{ 
-			position.X += (hspeed * (float)gameTime.ElapsedGameTime.TotalSeconds) / 4;
-			position.Y += ((vspeed * grounded) * (float)gameTime.ElapsedGameTime.TotalSeconds) / 4;
+		public void handleMove(GameTime gameTime, Level level, int sframes) 
+		{
+			position.X += (hspeed * (float)gameTime.ElapsedGameTime.TotalSeconds) / sframes;
+			position.Y += ((vspeed * grounded) * (float)gameTime.ElapsedGameTime.TotalSeconds) / sframes;
 			colbox.X = position.X;
 			colbox.Y = position.Y;
 
@@ -127,6 +126,7 @@ namespace eHacks_2018
 				}
 			}
 
+			//int i = 0;
 			foreach (Thing t in level.thingList)
 			{
 				if (t.GetType().Equals(typeof(Projectile)))
@@ -138,17 +138,20 @@ namespace eHacks_2018
 						Projectile p = t as Projectile;
 						if (p.speed < 0)
 						{
-							haccel -= 20f;
+							haccel -= p.knockback;
 							direction = -1;
 						}
 						else 
 						{ 
-							haccel += 20f;
+							haccel += p.knockback;
 							direction = 1;
 						}
+						t.GetType().GetMethod("setActive").Invoke(t, null );
+						//level.thingList[i] = null;
 						break;
 					}
 				}
+				//i++;
 			}
 		}
 
@@ -191,6 +194,11 @@ namespace eHacks_2018
 			RectangleF temp = RectangleF.Intersect(this.colbox, rect);
 			grounded = 1;
 
+			if (rect.Contains(colbox.X+(colbox.Width/2),colbox.Y+(colbox.Height/2)))
+			{
+				//failsafe for when a player is stuck in a block
+				colbox.Y = rect.Y - colbox.Height;
+			}
 			if (temp.Height > temp.Width && !temp.IsEmpty)
 			{
 				// left/right collision
@@ -344,10 +352,18 @@ namespace eHacks_2018
 		}
 
 
-		public void shoot()
+		public void shoot(Level level)
 		{
 			//TODO
-			//curWep.use(facing, );
+			Shooty s = curWep as Shooty;
+			s.use(facing, level);
+			shootPressed = true;
+			haccel += (s.recoil / 4) * (-facing) ;
+			if (grounded == 0)
+			{
+				vaccel -= s.recoil / 3;
+			}
+			grounded = 1;
 		}
 	}
 }

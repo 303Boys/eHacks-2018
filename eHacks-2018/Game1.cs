@@ -17,6 +17,7 @@ namespace eHacks_2018
         Level CurrentLevel;
         MainMenu menu;
         ReadLevel levelLoader;
+		bool listLoaded;
 
         Camera camera;
 
@@ -50,6 +51,18 @@ namespace eHacks_2018
             }
 		}
 
+		private void clean()
+		{
+			for (int i = 0; i < CurrentLevel.thingList.Count; i++)
+			{
+				if (CurrentLevel.thingList[i].isActive == false)
+				{
+					CurrentLevel.thingList[i] = null;
+					CurrentLevel.thingList.Remove(CurrentLevel.thingList[i]);
+				}
+			}
+		}
+
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -66,6 +79,7 @@ namespace eHacks_2018
             graphics.PreferredBackBufferWidth = 800;
             menu = new MainMenu(this.levelLoader, this);
             IsMouseVisible = true;
+			listLoaded = false;
 
             camera = new Camera(GraphicsDevice.Viewport);
             base.Initialize();
@@ -128,6 +142,10 @@ namespace eHacks_2018
 
             camera.camUpdate(gameTime, CurrentLevel);
 			updatePlayers(gameTime);
+			if (listLoaded == true)
+			{
+				clean();
+			}
 			base.Update(gameTime);
         }
 
@@ -150,6 +168,7 @@ namespace eHacks_2018
             if (menu.gameState == MainMenu.GameState.inGame)
             {
                 spriteBatch = CurrentLevel.draw(spriteBatch, sprites);
+				listLoaded = true;
             }
             spriteBatch.End();
 

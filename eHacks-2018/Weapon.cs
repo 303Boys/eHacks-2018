@@ -12,7 +12,7 @@ namespace eHacks_2018
 		protected Projectile bullet;
         protected int knockback;
         protected int damage;
-        protected int recoil;
+        public int recoil;
         protected int cooldownTime;
         protected int weight;
 
@@ -82,7 +82,8 @@ namespace eHacks_2018
 			{
 				temp.X += 30f;
 			}
-			bullet = new Projectile(temp, new RectangleF(temp.X, temp.Y, 10, 10), "bullet", facing, level);
+			bullet = new Projectile(temp, new RectangleF(temp.X, temp.Y, 10, 10),
+									"bullet", facing, 20f, 20, 20, level);
         }
 
         int cooldownTimer(int cooldownTime)
@@ -182,73 +183,10 @@ namespace eHacks_2018
 			{
 				temp.X += 30f;
 			}
-			bullet = new Projectile(temp, new RectangleF(temp.X, temp.Y, 10, 10), "bullet", facing, level);
+			bullet = new Projectile(temp, new RectangleF(temp.X, temp.Y, 10, 10), 
+			                        "bullet", facing, 20f, 20, 20, level);
 		}
 
     }
-
-    public class Projectile : Thing
-    {
-        public float speed;
-        private int duration;
-        private int damage;
-		private int direction;
-		public bool isActive;
-
-        public Projectile(Vector2 pos, RectangleF rect, string name, int direction, Level level) : base(pos, rect, name)
-        {
-			//position.X = rect.X;
-			//position.Y = rect.Y;
-			speed = 10f * direction;
-            duration = 20;
-            damage = 10;
-			colbox = rect;
-			isActive = true;
-			level.thingList.Add(this);
-        }
-
-        public float Getspeed()
-        {
-            return speed;
-        }
-        public int Getduration()
-        {
-            return duration;
-        }
-        public int Getdamage()
-        {
-            return damage;
-        }
-
-        public void Setspeed(float X)
-        {
-            speed = X;
-        }
-        public void Setduration(int X)
-        {
-            duration = X;
-        }
-        public void Setdamage(int X)
-        {
-            damage = X;
-        }
-		public void move() 
-		{
-			if (isActive)
-			{
-				position.X += speed;
-				colbox.X = position.X;
-				colbox.Y = position.Y;
-			}
-		}
-		public void setActive()
-		{
-			isActive = false;
-		}
-
-        public void Countdown(int duration)
-        {
-            while (duration >= 0) { duration--; }
-        }
-    }
+    
 }

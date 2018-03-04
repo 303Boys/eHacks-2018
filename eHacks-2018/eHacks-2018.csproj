@@ -59,6 +59,8 @@
     <Compile Include="TitleScreen.cs" />
     <Compile Include="Weapon.cs" />
     <Compile Include="Controls.cs" />
+    <Compile Include="Projectile.cs" />
+    <Compile Include="RangedWeps.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
