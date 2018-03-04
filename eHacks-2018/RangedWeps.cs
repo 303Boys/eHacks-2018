@@ -48,7 +48,7 @@ namespace eHacks_2018
 				temp.X += 30f;
 			}
 			bullet = new Projectile(temp, new RectangleF(temp.X, temp.Y, 10, 10),
-									"bullet", facing, 5f, 200, 30, owner, 3f, level);
+									"bullet", facing, 2f, 200, 30, owner, 3f, level);
 		}
 
 	}
