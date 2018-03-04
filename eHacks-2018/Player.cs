@@ -361,10 +361,10 @@ namespace eHacks_2018
 		{
             switch (this.slot)
             {
-                case 0: Sounds.returnSound("Jump").Play(); break;
-                case 1: Sounds.returnSound("Jump2").Play(); break;
-                case 2: Sounds.returnSound("Jump3").Play(); break;
-                case 3: Sounds.returnSound("Jump4").Play(); break;
+                case 1: Sounds.returnSound("Jump").Play(); break;
+                case 2: Sounds.returnSound("Jump2").Play(); break;
+                case 3: Sounds.returnSound("Jump3").Play(); break;
+                case 4: Sounds.returnSound("Jump4").Play(); break;
             }
             Sounds.returnSound("Jump").Play();
 			vaccel = -6.0f;
