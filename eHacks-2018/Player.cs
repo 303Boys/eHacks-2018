@@ -82,6 +82,8 @@ namespace eHacks_2018
 			vspeed = vaccel * vmax;
 			handleMove(gameTime, level);
 			handleMove(gameTime, level);
+			handleMove(gameTime, level);
+			handleMove(gameTime, level);
 			vaccel = vaccel + level.gravity;
 			//haccel -= 0.05f;
 			if (vaccel > 5.0f) 
@@ -106,8 +108,8 @@ namespace eHacks_2018
 
 		public void handleMove(GameTime gameTime, Level level) 
 		{ 
-			position.X += (hspeed * (float)gameTime.ElapsedGameTime.TotalSeconds) / 2;
-			position.Y += ((vspeed * grounded) * (float)gameTime.ElapsedGameTime.TotalSeconds) / 2;
+			position.X += (hspeed * (float)gameTime.ElapsedGameTime.TotalSeconds) / 4;
+			position.Y += ((vspeed * grounded) * (float)gameTime.ElapsedGameTime.TotalSeconds) / 4;
 			colbox.X = position.X;
 			colbox.Y = position.Y;
 
