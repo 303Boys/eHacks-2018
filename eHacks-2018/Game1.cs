@@ -19,6 +19,7 @@ namespace eHacks_2018
         MainMenu menu;
         ReadLevel levelLoader;
 		bool listLoaded;
+        int levelNum = 2;
 
         bool fullscreen;
 
@@ -168,6 +169,16 @@ namespace eHacks_2018
                     graphics.IsFullScreen = true;
                     graphics.ApplyChanges();
                     fullscreen = true;
+                }
+            }
+
+            if(CurrentLevel != null)
+            {
+                if (CurrentLevel.players.Count == 1)
+                {
+                    levelLoader.CreateLevel(System.Reflection.Assembly.GetExecutingAssembly().Location + "../../Content/Levels/level" + levelNum + ".level", sprites);
+                    CurrentLevel = levelLoader.returnLevel();
+                    levelNum++;
                 }
             }
 
