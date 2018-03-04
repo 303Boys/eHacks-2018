@@ -26,8 +26,8 @@ namespace eHacks_2018
 		public Controls controls;
 		public int health;
 		public int slot;
-		public float friction = 0.05f; //how fast player speeds up
-		public float drag = 0.015f; //how fast the player slows down
+		public float friction = 0.15f; //how fast player speeds up
+		public float drag = 0.03f; //how fast the player slows down
 		public List<Weapon> inventory;
 
 		public Player(Vector2 pos, RectangleF rect, string name, int slot) : base(pos, rect, name)
@@ -180,7 +180,8 @@ namespace eHacks_2018
 					}
 				}
 			}
-			if (position.X > 2000 || position.Y > 2000)
+			Vector2 levlim = level.getSize();
+			if (position.X > levlim.X * 2.5 || position.Y > levlim.Y * 2)
 			{
 				health = 0;
 			}
@@ -401,7 +402,7 @@ namespace eHacks_2018
 			{
 				Shooty wep = curWep as Shooty;
 				wep.use(facing, level);
-				haccel += (wep.recoil / 4) * (-facing);
+				haccel = (wep.recoil / 4) * (-facing);
 				if (grounded == 0)
 				{
 					vaccel -= wep.recoil / 3;
@@ -411,7 +412,7 @@ namespace eHacks_2018
 			{
 				Shotty wep = curWep as Shotty;
 				wep.use(facing, level);
-				haccel += (wep.recoil / 4) * (-facing);
+				haccel = (wep.recoil / 4) * (-facing);
 				if (grounded == 0)
 				{
 					vaccel -= wep.recoil / 3;
@@ -433,19 +434,19 @@ namespace eHacks_2018
 					curWepNum++;
 					if (curWepNum > inventory.Count-1)
 					{
-						Texture2D temp = curWep.sprite;
+						//Texture2D temp = curWep.sprite;
 						curWepNum = 0;
 						curWep = inventory[curWepNum];
-						curWep.sprite = temp;
+						curWep.sprite = level.sprList[1];
 						level.thingList[i] = curWep;
 						//curWepNum = 0;
 						break;
 					}
 					else 
 					{
-						Texture2D temp = curWep.sprite;
+						//Texture2D temp = curWep.sprite;
 						curWep = inventory[curWepNum];
-						curWep.sprite = temp;
+						curWep.sprite = level.sprList[9];
 						level.thingList[i] = curWep;
 						break;
 					}

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using System.IO;
 
 namespace eHacks_2018
 {
@@ -124,6 +125,7 @@ namespace eHacks_2018
             sprites.Add(Content.Load<Texture2D>("P4"));
             sprites.Add(Content.Load<Texture2D>("door_closed"));
             sprites.Add(Content.Load<Texture2D>("door_open"));
+			sprites.Add(Content.Load<Texture2D>("basic2"));
 
             Sounds.readSoundFiles(this);
             Fonts.readFonts(this);
@@ -178,11 +180,18 @@ namespace eHacks_2018
 
             if(CurrentLevel != null)
             {
-                if (CurrentLevel.players.Count == 1)
+                if (CurrentLevel.players.Count <= 1)
                 {
-                    levelLoader.CreateLevel(System.Reflection.Assembly.GetExecutingAssembly().Location + "../../Content/Levels/level" + levelNum + ".level", sprites);
-                    CurrentLevel = levelLoader.returnLevel();
-                    levelNum++;
+                    if(File.Exists(System.Reflection.Assembly.GetExecutingAssembly().Location + "../../Content/Levels/level" + levelNum + ".level")){
+                        levelLoader.CreateLevel(System.Reflection.Assembly.GetExecutingAssembly().Location + "../../Content/Levels/level" + levelNum + ".level", sprites);
+                        CurrentLevel = levelLoader.returnLevel();
+                        levelNum++;
+                    }
+                    else
+                    {
+                        // menu.gameState = MainMenu.GameState.mainMenu;
+                        levelNum = 1;
+                    }
                 }
             }
 
