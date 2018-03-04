@@ -15,16 +15,18 @@ namespace eHacks_2018
         public int recoil;
         protected int cooldownTime;
         protected int weight;
+		public int owner;
 
 
         //Constructor for Weapon class
-        public Weapon(Vector2 pos, RectangleF rect, string name) : base(pos, rect, name)
+        public Weapon(Vector2 pos, RectangleF rect, string name, int slot) : base(pos, rect, name)
         {
             knockback = 0;
             damage = 0;
             recoil = 0;
             cooldownTime = 0;
             weight = 0;
+			owner = slot;
         }
 //--------------------------------------------------------------------------------------------------------------
         // Getters for Weapon Attributes
@@ -83,7 +85,7 @@ namespace eHacks_2018
 				temp.X += 30f;
 			}
 			bullet = new Projectile(temp, new RectangleF(temp.X, temp.Y, 10, 10),
-									"bullet", facing, 20f, 20, 20, level);
+									"bullet", facing, 20f, 20, 20, owner, level);
         }
 
         int cooldownTimer(int cooldownTime)
@@ -97,7 +99,7 @@ namespace eHacks_2018
     {
         protected int swingRate;
 
-        public MeleeWeapon(Vector2 pos, RectangleF rect, string name) : base(pos, rect, name)
+        public MeleeWeapon(Vector2 pos, RectangleF rect, string name, int slot) : base(pos, rect, name, slot)
         {
             swingRate = 0;
         }
@@ -120,7 +122,7 @@ namespace eHacks_2018
         protected int fireRate;
         protected double angle;
 
-        public ProjectileWeapon(Vector2 pos, RectangleF rect, string name) : base(pos, rect, name)
+        public ProjectileWeapon(Vector2 pos, RectangleF rect, string name, int slot) : base(pos, rect, name, slot)
         {
             maxAmmo = 0;
             curAmmo = maxAmmo;
@@ -184,7 +186,7 @@ namespace eHacks_2018
 				temp.X += 30f;
 			}
 			bullet = new Projectile(temp, new RectangleF(temp.X, temp.Y, 10, 10), 
-			                        "bullet", facing, 20f, 20, 20, level);
+			                        "bullet", facing, 20f, 20, 20, owner, level);
 		}
 
     }

@@ -35,7 +35,7 @@ namespace eHacks_2018
 			this.slot = slot;
 			controls = new Controls(slot);
 			shootPressed = false;
-			curWep = new Shooty(position, new RectangleF(position.X, position.Y, 30f, 10f), "shooty");
+			curWep = new Shooty(position, new RectangleF(position.X, position.Y, 30f, 10f), "shooty", this.slot);
 		}//end Player() construction
 
 
@@ -137,19 +137,23 @@ namespace eHacks_2018
 					if (bullCheck(t.colbox))
 					{
 						Projectile p = t as Projectile;
-						if (p.speed < 0)
+						if (p.speed < 0 && p.isActive == true && p.owner != slot)
 						{
 							haccel -= p.knockback;
 							direction = -1;
 						}
-						else 
+						else if(p.speed > 0 && p.isActive == true && p.owner != slot)
 						{ 
 							haccel += p.knockback;
 							direction = 1;
 						}
-						if (p.isActive == true) { health -= p.damage; }
+						if (p.isActive == true && p.owner != slot) 
+						{ 
+							health -= p.damage; 
+							t.GetType().GetMethod("setActive").Invoke(t, null);
+						}
 
-						t.GetType().GetMethod("setActive").Invoke(t, null );
+						//t.GetType().GetMethod("setActive").Invoke(t, null );
 						//level.thingList[i] = null;
 						break;
 					}
