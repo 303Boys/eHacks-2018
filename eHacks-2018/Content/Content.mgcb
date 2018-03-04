@@ -274,3 +274,9 @@
 /processorParam:Quality=Best
 /build:Music/reg3.wav
 
+#begin Sounds/Hit.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Hit.wav
+

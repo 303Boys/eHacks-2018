@@ -21,6 +21,7 @@ namespace eHacks_2018
             sounds.Add(master.Content.Load<SoundEffect>("Sounds/Jump3"));
             sounds.Add(master.Content.Load<SoundEffect>("Sounds/Jump4"));
             sounds.Add(master.Content.Load<SoundEffect>("Sounds/Shoot"));
+            sounds.Add(master.Content.Load<SoundEffect>("Sounds/Hit"));
 
             music.Add(master.Content.Load<Song>("Music/reg3"));
         }

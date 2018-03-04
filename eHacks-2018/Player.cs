@@ -148,7 +148,8 @@ namespace eHacks_2018
 							direction = 1;
 						}
 						if (p.isActive == true && p.owner != slot) 
-						{ 
+						{
+                            Sounds.returnSound("Hit").Play();
 							health -= p.damage; 
 							t.GetType().GetMethod("setActive").Invoke(t, null);
 						}
