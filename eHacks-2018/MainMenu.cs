@@ -180,18 +180,21 @@ namespace eHacks_2018
                 levelLoader.CreateLevel(System.Reflection.Assembly.GetExecutingAssembly().Location + "../../Content/Levels/level1.level", sprites);
                 master.recieveLevel(levelLoader.returnLevel());
                 gameState = GameState.inGame;
+                master.IsMouseVisible = false;
             }
             if (element == "Level2")//Level2 button
             {
                 levelLoader.CreateLevel(System.Reflection.Assembly.GetExecutingAssembly().Location + "../../Content/Levels/level2.level", sprites);
                 master.recieveLevel(levelLoader.returnLevel());
                 gameState = GameState.inGame;
+                master.IsMouseVisible = false;
             }
             if (element == "Level2")//Level2 button
             {
                 levelLoader.CreateLevel(System.Reflection.Assembly.GetExecutingAssembly().Location + "../../Content/Levels/level3.level", sprites);
                 master.recieveLevel(levelLoader.returnLevel());
                 gameState = GameState.inGame;
+                master.IsMouseVisible = false;
             }
         }
 
