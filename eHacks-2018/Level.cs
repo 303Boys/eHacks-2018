@@ -52,7 +52,9 @@ namespace eHacks_2018
             this.playerSpawns = playerSpawns;
             this.players.Add(new Player(playerSpawns[0], new RectangleF(playerSpawns[0].X, playerSpawns[0].Y, 25, 25), "Player1", 1));
 			this.players.Add(new Player(playerSpawns[1], new RectangleF(playerSpawns[1].X, playerSpawns[1].Y, 25, 25), "Player2", 2));
-			this.gravity = gravity;
+            this.players.Add(new Player(playerSpawns[2], new RectangleF(playerSpawns[2].X, playerSpawns[2].Y, 25, 25), "Player3", 3));
+            this.players.Add(new Player(playerSpawns[3], new RectangleF(playerSpawns[3].X, playerSpawns[3].Y, 25, 25), "Player4", 4));
+            this.gravity = gravity;
 		}
 
         public SpriteBatch draw(SpriteBatch spriteBatch, List<Texture2D> textures)
@@ -78,9 +80,15 @@ namespace eHacks_2018
 			players[0].curWep.sprite = textures[1];
 			players[1].sprite = textures[4];
 			players[1].curWep.sprite = textures[1];
-			this.thingList.Add(players[0].curWep);
+            players[2].sprite = textures[5];
+            players[2].curWep.sprite = textures[1];
+            players[3].sprite = textures[6];
+            players[3].curWep.sprite = textures[1];
+            this.thingList.Add(players[0].curWep);
 			this.thingList.Add(players[1].curWep);
-            for(int i = 0; i < thingTypes.Count; i++)
+            this.thingList.Add(players[2].curWep);
+            this.thingList.Add(players[3].curWep);
+            for (int i = 0; i < thingTypes.Count; i++)
             {
                 switch (thingTypes[i])
                 {
