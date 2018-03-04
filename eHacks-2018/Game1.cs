@@ -121,6 +121,7 @@ namespace eHacks_2018
             sprites.Add(Content.Load<Texture2D>("door_open"));
 
             Sounds.readSoundFiles(this);
+            Fonts.readFonts(this);
 
             menu.recieveSprites(sprites);
             // TODO: use this.Content to load your game content here

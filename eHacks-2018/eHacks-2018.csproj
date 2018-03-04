@@ -42,6 +42,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Fonts.cs" />
     <Compile Include="LevelEdit.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="GUIElement.cs" />
