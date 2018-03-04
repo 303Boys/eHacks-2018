@@ -26,8 +26,8 @@ namespace eHacks_2018
 		public Controls controls;
 		public int health;
 		public int slot;
-		public float friction = 0.05f; //how fast player speeds up
-		public float drag = 0.015f; //how fast the player slows down
+		public float friction = 0.15f; //how fast player speeds up
+		public float drag = 0.03f; //how fast the player slows down
 		public List<Weapon> inventory;
 
 		public Player(Vector2 pos, RectangleF rect, string name, int slot) : base(pos, rect, name)
@@ -401,7 +401,7 @@ namespace eHacks_2018
 			{
 				Shooty wep = curWep as Shooty;
 				wep.use(facing, level);
-				haccel += (wep.recoil / 4) * (-facing);
+				haccel = (wep.recoil / 4) * (-facing);
 				if (grounded == 0)
 				{
 					vaccel -= wep.recoil / 3;
@@ -411,7 +411,7 @@ namespace eHacks_2018
 			{
 				Shotty wep = curWep as Shotty;
 				wep.use(facing, level);
-				haccel += (wep.recoil / 4) * (-facing);
+				haccel = (wep.recoil / 4) * (-facing);
 				if (grounded == 0)
 				{
 					vaccel -= wep.recoil / 3;
