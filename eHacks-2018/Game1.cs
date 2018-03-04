@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using System.IO;
 
 namespace eHacks_2018
 {
@@ -180,9 +181,16 @@ namespace eHacks_2018
             {
                 if (CurrentLevel.players.Count == 1)
                 {
-                    levelLoader.CreateLevel(System.Reflection.Assembly.GetExecutingAssembly().Location + "../../Content/Levels/level" + levelNum + ".level", sprites);
-                    CurrentLevel = levelLoader.returnLevel();
-                    levelNum++;
+                    if(File.Exists(System.Reflection.Assembly.GetExecutingAssembly().Location + "../../Content/Levels/level" + levelNum + ".level")){
+                        levelLoader.CreateLevel(System.Reflection.Assembly.GetExecutingAssembly().Location + "../../Content/Levels/level" + levelNum + ".level", sprites);
+                        CurrentLevel = levelLoader.returnLevel();
+                        levelNum++;
+                    }
+                    else
+                    {
+                        // menu.gameState = MainMenu.GameState.mainMenu;
+                        levelNum = 1;
+                    }
                 }
             }
 
