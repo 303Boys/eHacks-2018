@@ -25,7 +25,7 @@ namespace eHacks_2018
     }
     class MainMenu
     {
-        public enum GameState { mainMenu, enterName, inGame }
+        public enum GameState { mainMenu, enterName, inGame,LevelSelect }
         public GameState gameState;
         private string name = string.Empty;
         private bool caps;
@@ -47,13 +47,22 @@ namespace eHacks_2018
                 {
                     new GUIElement("menu"),
                     new GUIElement("nameBtn"),
-                    new GUIElement("play")
+                    new GUIElement("play"),
                 }),
                 //Enter name menu
                 (new List<GUIElement>
                 {
                     new GUIElement("name"),
                     new GUIElement("done"),
+                }),
+                //Choose level menu
+                (new List<GUIElement>
+                {
+                    new GUIElement("menu"),
+                    new GUIElement("Levels"),
+                    new GUIElement("Level1"),
+                    new GUIElement("Level2"),
+                    new GUIElement("Level3"),
                 })
 
             };
@@ -83,8 +92,13 @@ namespace eHacks_2018
             }
             //Sets offsets of the buttons
             menus[0].Find(x => x.ElementName == "play").MoveElement(0, -100);
+            //menus[0].Find(x => x.ElementName == "Levels").MoveElement(0, -40);
             menus[0].Find(x => x.ElementName == "nameBtn").MoveElement(0, -40);
             menus[1].Find(x => x.ElementName == "done").MoveElement(0, 60);
+            menus[2].Find(x => x.ElementName == "Levels").MoveElement(0, -100);
+            menus[2].Find(x => x.ElementName == "Level1").MoveElement(0, -40);
+            menus[2].Find(x => x.ElementName == "Level2").MoveElement(0,  20);
+            menus[2].Find(x => x.ElementName == "Level3").MoveElement(0, 80);
 
         }
 
@@ -103,6 +117,12 @@ namespace eHacks_2018
                     foreach (GUIElement button in menus[1])//EnterName menu
                     {
                         GetKeys();
+                        button.Update();
+                    }
+                    break;
+                case GameState.LevelSelect:
+                    foreach (GUIElement button in menus[2])//Level Select menu
+                    {
                         button.Update();
                     }
                     break;
@@ -129,6 +149,12 @@ namespace eHacks_2018
                         button.Draw(spriteBatch);
                     }
                     break;
+                    case GameState.LevelSelect:
+                    foreach (GUIElement button in menus[2])//Level Select menu
+                    {
+                        button.Draw(spriteBatch);
+                    }
+                    break;
                 case GameState.inGame://Ingame GUI
                     break;
             }
@@ -139,9 +165,7 @@ namespace eHacks_2018
         {
             if (element == "play")//PlayButton
             {
-                levelLoader.CreateLevel(System.Reflection.Assembly.GetExecutingAssembly().Location + "../../Content/Levels/level1.level", sprites);
-                master.recieveLevel(levelLoader.returnLevel());
-                gameState = GameState.inGame;
+                gameState = GameState.LevelSelect;
             }
             if (element == "nameBtn")//EnterName button
             {
@@ -150,6 +174,24 @@ namespace eHacks_2018
             if (element == "done")//Done button
             {
                 gameState = GameState.mainMenu;
+            }
+            if (element == "Level1")//Level1 button
+            {
+                levelLoader.CreateLevel(System.Reflection.Assembly.GetExecutingAssembly().Location + "../../Content/Levels/level1.level", sprites);
+                master.recieveLevel(levelLoader.returnLevel());
+                gameState = GameState.inGame;
+            }
+            if (element == "Level2")//Level2 button
+            {
+                levelLoader.CreateLevel(System.Reflection.Assembly.GetExecutingAssembly().Location + "../../Content/Levels/level2.level", sprites);
+                master.recieveLevel(levelLoader.returnLevel());
+                gameState = GameState.inGame;
+            }
+            if (element == "Level2")//Level2 button
+            {
+                levelLoader.CreateLevel(System.Reflection.Assembly.GetExecutingAssembly().Location + "../../Content/Levels/level3.level", sprites);
+                master.recieveLevel(levelLoader.returnLevel());
+                gameState = GameState.inGame;
             }
         }
 
