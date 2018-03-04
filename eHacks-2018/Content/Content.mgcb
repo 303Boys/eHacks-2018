@@ -288,7 +288,5 @@
 /build:player_health.spritefont
 
 #begin FORCED SQUARE.ttf
-/importer:
-/processor:
-/build:FORCED SQUARE.ttf
+/copy:FORCED SQUARE.ttf
 
