@@ -23,7 +23,7 @@ namespace eHacks_2018
 				temp.X += 30f;
 			}
 			bullet = new Projectile(temp, new RectangleF(temp.X, temp.Y, 10, 10),
-									"bullet", facing, 20f, 70, 50, owner, level);
+									"bullet", facing, 20f, 70, 10, owner, 1f, level);
 		}
 
 	}
@@ -48,7 +48,7 @@ namespace eHacks_2018
 				temp.X += 30f;
 			}
 			bullet = new Projectile(temp, new RectangleF(temp.X, temp.Y, 10, 10),
-									"bullet", facing, 5f, 200, 500, owner, level);
+									"bullet", facing, 5f, 200, 30, owner, 3f, level);
 		}
 
 	}

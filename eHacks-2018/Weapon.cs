@@ -87,7 +87,7 @@ namespace eHacks_2018
 				temp.X += 30f;
 			}
 			bullet = new Projectile(temp, new RectangleF(temp.X, temp.Y, 10, 10),
-									"bullet", facing, 20f, 20, 20, owner, level);
+									"bullet", facing, 20f, 20, 20, owner, 100f, level);
         }
 
         int cooldownTimer(int cooldownTime)
@@ -188,7 +188,7 @@ namespace eHacks_2018
 				temp.X += 30f;
 			}
 			bullet = new Projectile(temp, new RectangleF(temp.X, temp.Y, 10, 10), 
-			                        "bullet", facing, 20f, 20, 20, owner, level);
+			                        "bullet", facing, 20f, 20, 20, owner, 100f, level);
 		}
 
 		public void switchWeapon(Level level)

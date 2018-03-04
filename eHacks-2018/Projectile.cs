@@ -14,12 +14,13 @@ namespace eHacks_2018
 		public string type;
 
 		public Projectile(Vector2 pos, RectangleF rect, string name, 
-		                  int direction, float spd, int dur, int dmg, int slot, Level level) : base(pos, rect, name)
+		                  int direction, float spd, int dur, int dmg, 
+		                  int slot, float kback, Level level) : base(pos, rect, name)
 		{
 			speed = spd * direction;
 			duration = dur;
 			damage = dmg;
-			knockback = 1 / 2f;
+			knockback = kback;
 			colbox = rect;
 			isActive = true;
 			owner = slot;
