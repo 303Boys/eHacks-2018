@@ -261,6 +261,7 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Music/reg3.wav
+
 #begin simpleBlock.bmp
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -289,4 +290,6 @@
 #begin FORCED SQUARE.ttf
 /copy:FORCED SQUARE.ttf
 
+#begin Levels/level2.level
+/copy:Levels/level2.level
 
