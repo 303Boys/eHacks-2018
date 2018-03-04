@@ -11,6 +11,7 @@ namespace eHacks_2018
     public class Game1 : Game
     {
         List<Texture2D> sprites = new List<Texture2D>();
+        List<Microsoft.Xna.Framework.Audio.SoundEffect> sounds = new List<Microsoft.Xna.Framework.Audio.SoundEffect>();
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -105,6 +106,8 @@ namespace eHacks_2018
             sprites.Add(Content.Load<Texture2D>("door_closed"));
             sprites.Add(Content.Load<Texture2D>("door_open"));
 
+            Sounds.readSoundFiles(this);
+
             menu.recieveSprites(sprites);
             // TODO: use this.Content to load your game content here
         }
@@ -128,7 +131,7 @@ namespace eHacks_2018
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if (GamePad.GetState(PlayerIndex.One).Buttons.RightShoulder == ButtonState.Pressed)
+            if (GamePad.GetState(PlayerIndex.One).Buttons.RightShoulder == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Q))
             {
                 levelLoader.CreateLevel(System.Reflection.Assembly.GetExecutingAssembly().Location + "../../Content/Levels/level1.level", sprites);
                 CurrentLevel = levelLoader.returnLevel();

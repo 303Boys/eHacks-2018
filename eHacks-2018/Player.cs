@@ -347,6 +347,7 @@ namespace eHacks_2018
 
 		public void jump()
 		{
+            Sounds.returnSound("Jump").Play();
 			vaccel = -6.0f;
 			grounded = 1;
 		}
@@ -354,8 +355,9 @@ namespace eHacks_2018
 
 		public void shoot(Level level)
 		{
-			//TODO
-			Shooty s = curWep as Shooty;
+            Sounds.returnSound("Shoot").Play();
+            //TODO
+            Shooty s = curWep as Shooty;
 			s.use(facing, level);
 			shootPressed = true;
 			haccel += (s.recoil / 4) * (-facing) ;
