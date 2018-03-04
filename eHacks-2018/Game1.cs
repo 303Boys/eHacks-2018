@@ -39,6 +39,7 @@ namespace eHacks_2018
                     p.movementCheck(gameTime, CurrentLevel);
 					if (p.health <= 0)
 					{
+                        Sounds.returnSound("Explosion").Play();
 						p.isActive = false;
 					}
                 }
