@@ -118,7 +118,7 @@ namespace eHacks_2018
 			// TODO: Add your update logic here
 			//Controls playerOneTest = new Controls();
 
-            camera.camUpdate(gameTime);
+            camera.camUpdate(gameTime, CurrentLevel);
 			updatePlayers(gameTime);
 			base.Update(gameTime);
         }
