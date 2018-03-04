@@ -20,6 +20,8 @@ namespace eHacks_2018
         ReadLevel levelLoader;
 		bool listLoaded;
 
+        bool fullscreen;
+
         Camera camera;
 
         LevelEdit levelEditor;
@@ -89,10 +91,7 @@ namespace eHacks_2018
             this.levelLoader = new ReadLevel();
             this.levelEditor = new LevelEdit(false);
             //camera = new Camera(GraphicsDevice.Viewport);
-            graphics.PreferredBackBufferHeight = 600;
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.IsFullScreen = true;
-            graphics.ApplyChanges();
+
             menu = new MainMenu(this.levelLoader, this);
             IsMouseVisible = true;
 			listLoaded = false;
@@ -150,6 +149,25 @@ namespace eHacks_2018
             {
                 levelLoader.CreateLevel(System.Reflection.Assembly.GetExecutingAssembly().Location + "../../Content/Levels/level1.level", sprites);
                 CurrentLevel = levelLoader.returnLevel();
+            }
+
+            //Switch between fullscreen using left or right alt and enter
+            if((Keyboard.GetState().IsKeyDown(Keys.RightAlt) || Keyboard.GetState().IsKeyDown(Keys.LeftAlt)) && Keyboard.GetState().IsKeyDown(Keys.Enter))
+            {
+                if (fullscreen)
+                {
+                    graphics.IsFullScreen = false;
+                    graphics.ApplyChanges();
+                    fullscreen = false;
+                }
+                else
+                {
+                    graphics.PreferredBackBufferHeight = 600;
+                    graphics.PreferredBackBufferWidth = 800;
+                    graphics.IsFullScreen = true;
+                    graphics.ApplyChanges();
+                    fullscreen = true;
+                }
             }
 
             levelEditor.checkState(this, CurrentLevel, sprites);
