@@ -26,6 +26,8 @@ namespace eHacks_2018
 		public Controls controls;
 		public int health;
 		public int slot;
+		public float friction = 0.05f; //how fast player speeds up
+		public float drag = 0.015f; //how fast the player slows down
 		public List<Weapon> inventory;
 
 		public Player(Vector2 pos, RectangleF rect, string name, int slot) : base(pos, rect, name)
@@ -57,7 +59,7 @@ namespace eHacks_2018
 			{
 				if (haccel > -1.0f)
 				{
-					haccel -= 0.4f;
+					haccel -= friction;
 					if (haccel < -1.0f)
 					{
 						haccel = -1.0f;
@@ -70,7 +72,7 @@ namespace eHacks_2018
 			{ 
 				if (haccel < 1.0f)
 				{
-					haccel += 0.4f;
+					haccel += friction;
 					if (haccel > 1.0f)
 					{
 						haccel = 1.0f;
@@ -105,19 +107,19 @@ namespace eHacks_2018
 			handleMove(gameTime, level, 4);
 			vaccel = vaccel + level.gravity;
 			//haccel -= 0.05f;
-			if (vaccel > 5.0f) 
+			if (vaccel > 6.0f) 
 			{ 
-				vaccel = 5.0f; 
+				vaccel = 6.0f; 
 			}
-			if (haccel < -0.05f) //if traveling left
+			if (haccel < -drag) //if traveling left
 			{
-				haccel += 0.05f;
+				haccel += drag;
 			}
-			if (haccel > 0.05f) //if traveling right
+			if (haccel > drag) //if traveling right
 			{
-				haccel -= 0.05f;
+				haccel -= drag;
 			}
-			if (haccel >= -0.05f && haccel <= 0.05f) //if completely slowed down
+			if (haccel >= -drag && haccel <= drag) //if completely slowed down
 			{
 				haccel = 0.0f;
 			}
