@@ -434,19 +434,19 @@ namespace eHacks_2018
 					curWepNum++;
 					if (curWepNum > inventory.Count-1)
 					{
-						Texture2D temp = curWep.sprite;
+						//Texture2D temp = curWep.sprite;
 						curWepNum = 0;
 						curWep = inventory[curWepNum];
-						curWep.sprite = temp;
+						curWep.sprite = level.sprList[1];
 						level.thingList[i] = curWep;
 						//curWepNum = 0;
 						break;
 					}
 					else 
 					{
-						Texture2D temp = curWep.sprite;
+						//Texture2D temp = curWep.sprite;
 						curWep = inventory[curWepNum];
-						curWep.sprite = temp;
+						curWep.sprite = level.sprList[9];
 						level.thingList[i] = curWep;
 						break;
 					}

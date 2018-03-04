@@ -45,6 +45,7 @@ namespace eHacks_2018
         private List<XNAF.Vector2> playerSpawns;
         public float gravity;
         public List<Player> players = new List<Player>();
+		public List<Texture2D> sprList = new List<Texture2D>();
 
 		public Level(string name, XNAF.Vector2 size, float gravity, List<XNAF.Vector2> playerSpawns)
 		{
@@ -78,6 +79,7 @@ namespace eHacks_2018
         public void loadThings(List<Texture2D> textures, List<string> spriteNames, List<XNAF.Vector2> thingPos, List<int> thingTypes)
         {
             thingList = new List<Thing>();
+			sprList = textures;
             players[0].sprite = textures[3];
 			players[0].curWep.sprite = textures[1];
 			players[1].sprite = textures[4];

@@ -125,6 +125,7 @@ namespace eHacks_2018
             sprites.Add(Content.Load<Texture2D>("P4"));
             sprites.Add(Content.Load<Texture2D>("door_closed"));
             sprites.Add(Content.Load<Texture2D>("door_open"));
+			sprites.Add(Content.Load<Texture2D>("basic2"));
 
             Sounds.readSoundFiles(this);
             Fonts.readFonts(this);
