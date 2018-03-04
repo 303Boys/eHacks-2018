@@ -179,7 +179,7 @@ namespace eHacks_2018
 
             if(CurrentLevel != null)
             {
-                if (CurrentLevel.players.Count == 1)
+                if (CurrentLevel.players.Count <= 1)
                 {
                     if(File.Exists(System.Reflection.Assembly.GetExecutingAssembly().Location + "../../Content/Levels/level" + levelNum + ".level")){
                         levelLoader.CreateLevel(System.Reflection.Assembly.GetExecutingAssembly().Location + "../../Content/Levels/level" + levelNum + ".level", sprites);
