@@ -90,46 +90,34 @@ namespace eHacks_2018
             //position = new Vector2(level.players[0].position.X + (level.players[0].sprite.Width / 2) - level.getSize().X / 2,
             //    level.players[0].position.Y + (level.players[0].sprite.Height / 2) - level.getSize().Y / 2);
             transformMatrix = Matrix.CreateScale(new Vector3(zoomValue, zoomValue, 0)) *
-            //    Matrix.CreateTranslation(new Vector3(-position.X, -position.Y, 0));
               Matrix.CreateTranslation(new Vector3(-cameraRectangle.X / 2, -cameraRectangle.Y / 2, 0));
 
-            //position.X = (rightMostX(level) - (rightMostX(level)) / 2) * zoomValue;
-            position.X = (rightMostX(level) + leftMostX(level)) / 2;
-            //position.X = ((level.getSize().X) / 2) * zoomValue;
-             System.Diagnostics.Debug.Write("Camera X Position: ");
-             System.Diagnostics.Debug.WriteLine(position.X);
-            System.Diagnostics.Debug.WriteLine("Center between Rightmost + Leftmost = ");
+            if (level != null)
+            {
+                position.X = (rightMostX(level) + leftMostX(level)) / 2;
 
-            position.Y = (rightMostY(level) + leftMostY(level)) / 2;
 
-            //position.Y = (rightMostY(level)) * zoomValue;
-
-           
-
-            //position.Y = ((level.getSize().Y) / 2) * zoomValue;
-             System.Diagnostics.Debug.Write("Camera Y Position: ");
-             System.Diagnostics.Debug.WriteLine(position.Y);
-
-            System.Diagnostics.Debug.Write("Leftmost Player Position: ");
-            System.Diagnostics.Debug.WriteLine(leftMostX(level)+ " , " + leftMostY(level));
-
-            System.Diagnostics.Debug.Write("Rightmost Player Position: ");
-            System.Diagnostics.Debug.WriteLine(rightMostX(level) + " , " + rightMostY(level));
+                position.Y = (rightMostY(level) + leftMostY(level)) / 2;
 
 
 
-            cameraRectangle.X = (rightMostX(level) * zoomValue) / 2;
-            cameraRectangle.Y = (rightMostY(level) * zoomValue);
-            //cameraRectangle.Width = (rightMostX(level) - leftMostX(level)) * zoomValue;
-            //cameraRectangle.Height = (rightMostY(level) - leftMostY(level)) * zoomValue;
 
-            if ((rightMostY(level) - leftMostX(level)) * zoomValue > level.getSize().Y) {
-                zoomValue -= 0.0025f;
-            } else if ((rightMostY(level) - leftMostX(level)) * zoomValue < level.getSize().Y && zoomValue < 1) {
-                zoomValue += 0.0025f;
+
+                cameraRectangle.X = (rightMostX(level) * zoomValue) / 2;
+                cameraRectangle.Y = (rightMostY(level) * zoomValue);
+                //cameraRectangle.Width = (rightMostX(level) - leftMostX(level)) * zoomValue;
+                //cameraRectangle.Height = (rightMostY(level) - leftMostY(level)) * zoomValue;
+
+                if ((rightMostY(level) - leftMostX(level)) * zoomValue > level.getSize().Y)
+                {
+                    zoomValue -= 0.003f;
+                }
+                else if ((rightMostY(level) - leftMostX(level)) * zoomValue < level.getSize().Y && zoomValue < 1)
+                {
+                    zoomValue += 0.003f;
+                }
+
             }
-
-
 
             /*if (Keyboard.GetState().IsKeyDown(Keys.A)){
                 position.X -= 5;
