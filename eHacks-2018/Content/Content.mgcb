@@ -220,18 +220,6 @@
 /processorParam:TextureFormat=Color
 /build:Levels.png
 
-#begin simpleblock.bmp
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:simpleblock.bmp
-
 #begin Sounds/Explosion.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -273,6 +261,17 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Music/reg3.wav
+#begin simpleBlock.bmp
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:simpleBlock.bmp
 
 #begin Sounds/Hit.wav
 /importer:WavImporter
@@ -289,4 +288,5 @@
 
 #begin FORCED SQUARE.ttf
 /copy:FORCED SQUARE.ttf
+
 

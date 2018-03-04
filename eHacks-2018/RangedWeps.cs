@@ -23,7 +23,32 @@ namespace eHacks_2018
 				temp.X += 30f;
 			}
 			bullet = new Projectile(temp, new RectangleF(temp.X, temp.Y, 10, 10),
-									"bullet", facing, 2f, 70, 50, owner, level);
+									"bullet", facing, 20f, 70, 50, owner, level);
+		}
+
+	}
+
+	public class Shotty : ProjectileWeapon
+	{
+		public Shotty(Vector2 pos, RectangleF rect, string name, int slot) : base(pos, rect, name, slot)
+		{
+			recoil = 10;
+			this.owner = slot;
+		}
+
+		public new void use(int facing, Level level)
+		{
+			Vector2 temp = position;
+			if (facing == -1)
+			{
+				temp.X -= 30f;
+			}
+			else if (facing == 1)
+			{
+				temp.X += 30f;
+			}
+			bullet = new Projectile(temp, new RectangleF(temp.X, temp.Y, 10, 10),
+									"bullet", facing, 5f, 200, 500, owner, level);
 		}
 
 	}

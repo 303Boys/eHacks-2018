@@ -44,6 +44,10 @@ namespace eHacks_2018
 					{
                         Sounds.returnSound("Explosion").Play();
 						p.isActive = false;
+						foreach (Weapon w in p.inventory)
+						{
+							w.isActive = false;
+						}
 					}
                 }
                 //CurrentLevel.players[0].movementCheck(gameTime, CurrentLevel);

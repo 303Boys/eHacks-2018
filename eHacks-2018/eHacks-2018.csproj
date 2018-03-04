@@ -63,6 +63,7 @@
     <Compile Include="Controls.cs" />
     <Compile Include="Projectile.cs" />
     <Compile Include="RangedWeps.cs" />
+    <Compile Include="MeleeWeps.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

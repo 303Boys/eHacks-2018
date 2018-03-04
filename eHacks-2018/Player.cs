@@ -3,6 +3,7 @@ using System.Drawing;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 namespace eHacks_2018
 {
 	public class Player : Thing
@@ -11,6 +12,7 @@ namespace eHacks_2018
 		private float vmax = 80f;
 		public int grounded; //0 on ground, 1 if else
 		public bool shootPressed;
+		public bool switchWepPressed;
 		public int facing; //1 facing right, -1 facing left
 		public int direction;
 		public int prevface;
@@ -20,9 +22,11 @@ namespace eHacks_2018
 		public float haccel; //acceleration
 		public float vaccel; //acceleration
 		public Weapon curWep;
+		public int curWepNum;
 		public Controls controls;
 		public int health;
 		public int slot;
+		public List<Weapon> inventory;
 
 		public Player(Vector2 pos, RectangleF rect, string name, int slot) : base(pos, rect, name)
 		{
@@ -35,7 +39,12 @@ namespace eHacks_2018
 			this.slot = slot;
 			controls = new Controls(slot);
 			shootPressed = false;
-			curWep = new Shooty(position, new RectangleF(position.X, position.Y, 30f, 10f), "shooty", this.slot);
+			switchWepPressed = false;
+			inventory = new List<Weapon>();
+			inventory.Add(new Shooty(position, new RectangleF(position.X, position.Y, 30f, 10f), "Shooty", this.slot));
+			inventory.Add(new Shotty(position, new RectangleF(position.X, position.Y, 30f, 10f), "Shotty", this.slot));
+			curWepNum = 0;
+			curWep = inventory[curWepNum];
 		}//end Player() construction
 
 
@@ -79,6 +88,14 @@ namespace eHacks_2018
 			else if (shootPressed && !controls.shoot) 
 			{
 				shootPressed = false;
+			}
+			if (controls.switchWep && !switchWepPressed)
+			{
+				switchWeapon(level);
+			}
+			else if (switchWepPressed && !controls.switchWep)
+			{
+				switchWepPressed = false;
 			}
 			hspeed = haccel * hmax;
 			vspeed = vaccel * vmax;
@@ -377,16 +394,62 @@ namespace eHacks_2018
 		public void shoot(Level level)
 		{
             Sounds.returnSound("Shoot").Play();
-            //TODO
-            Shooty s = curWep as Shooty;
-			s.use(facing, level);
-			shootPressed = true;
-			haccel += (s.recoil / 4) * (-facing) ;
-			if (grounded == 0)
+			//TODO
+			if (curWep.wepType == "Shooty")
 			{
-				vaccel -= s.recoil / 3;
+				Shooty wep = curWep as Shooty;
+				wep.use(facing, level);
+				haccel += (wep.recoil / 4) * (-facing);
+				if (grounded == 0)
+				{
+					vaccel -= wep.recoil / 3;
+				}
 			}
+			else if(curWep.wepType == "Shotty")
+			{
+				Shotty wep = curWep as Shotty;
+				wep.use(facing, level);
+				haccel += (wep.recoil / 4) * (-facing);
+				if (grounded == 0)
+				{
+					vaccel -= wep.recoil / 3;
+				}
+			}
+			//Shooty s = curWep as Shooty;
+			//s.use(facing, level);
+			shootPressed = true;
+
+
 			grounded = 1;
+		}
+		public void switchWeapon(Level level)
+		{
+			for (int i = 0; i < level.thingList.Count; i++)
+			{
+				if (level.thingList[i] == curWep)
+				{
+					curWepNum++;
+					if (curWepNum > inventory.Count-1)
+					{
+						Texture2D temp = curWep.sprite;
+						curWepNum = 0;
+						curWep = inventory[curWepNum];
+						curWep.sprite = temp;
+						level.thingList[i] = curWep;
+						//curWepNum = 0;
+						break;
+					}
+					else 
+					{
+						Texture2D temp = curWep.sprite;
+						curWep = inventory[curWepNum];
+						curWep.sprite = temp;
+						level.thingList[i] = curWep;
+						break;
+					}
+				}
+			}
+			switchWepPressed = true;
 		}
 	}
 }

@@ -16,6 +16,7 @@ namespace eHacks_2018
         protected int cooldownTime;
         protected int weight;
 		public int owner;
+		public string wepType;
 
 
         //Constructor for Weapon class
@@ -27,6 +28,7 @@ namespace eHacks_2018
             cooldownTime = 0;
             weight = 0;
 			owner = slot;
+			wepType = name;
         }
 //--------------------------------------------------------------------------------------------------------------
         // Getters for Weapon Attributes
@@ -187,6 +189,14 @@ namespace eHacks_2018
 			}
 			bullet = new Projectile(temp, new RectangleF(temp.X, temp.Y, 10, 10), 
 			                        "bullet", facing, 20f, 20, 20, owner, level);
+		}
+
+		public void switchWeapon(Level level)
+		{
+			for (int i = 0; i < level.thingList.Count; i++)
+			{
+				
+			}
 		}
 
     }

@@ -13,6 +13,7 @@ namespace eHacks_2018
         public bool right;
         public bool jump;
         public bool shoot;
+		public bool switchWep;
 
         public Controls(int playerNum)
         {
@@ -73,12 +74,14 @@ namespace eHacks_2018
                 System.Diagnostics.Debug.WriteLine(currentPlayer);
             }
 
-            if (playerCurrentState.IsButtonDown(Buttons.Y))
-            {
-                System.Diagnostics.Debug.WriteLine("Player presses Y.");
-                System.Diagnostics.Debug.Write("    Player Number: ");
-                System.Diagnostics.Debug.WriteLine(currentPlayer);
-            }
+			if (playerCurrentState.IsButtonDown(Buttons.Y))
+			{
+				switchWep = true;
+				System.Diagnostics.Debug.WriteLine("Player presses Y.");
+				System.Diagnostics.Debug.Write("    Player Number: ");
+				System.Diagnostics.Debug.WriteLine(currentPlayer);
+			}
+			else { switchWep = false; }
 
             playerCurrentState = playerInitialState;
         }

@@ -11,6 +11,7 @@ namespace eHacks_2018
 		public int damage;
 		public int direction;
 		public int owner;
+		public string type;
 
 		public Projectile(Vector2 pos, RectangleF rect, string name, 
 		                  int direction, float spd, int dur, int dmg, int slot, Level level) : base(pos, rect, name)
@@ -22,6 +23,7 @@ namespace eHacks_2018
 			colbox = rect;
 			isActive = true;
 			owner = slot;
+			type = name;
 			level.thingList.Add(this);
 		}
 
