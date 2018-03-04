@@ -157,7 +157,7 @@ namespace eHacks_2018
 			// TODO: Add your update logic here
 			//Controls playerOneTest = new Controls();
 
-            camera.camUpdate(gameTime, CurrentLevel);
+            camera.camUpdate(gameTime, CurrentLevel, levelEditor);
 			updatePlayers(gameTime);
 			if (listLoaded == true)
 			{
@@ -178,7 +178,7 @@ namespace eHacks_2018
             //spriteBatch = levelLoader.loadLevel(spriteBatch, sprites);
             //CurrentLevel = levelLoader.returnLevel();
             //spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.transformMatrix);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.transformMatrix);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, Camera.transformMatrix);
             //spriteBatch.Begin();
             menu.Draw(spriteBatch);
             //spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.transformMatrix);

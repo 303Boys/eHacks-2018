@@ -9,9 +9,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace eHacks_2018
 {
-    class LevelEdit
+    public class LevelEdit
     {
-        private bool enable;
+        public bool enable;
         private bool newlyEnabled;
         private bool toggleMouseDisable;
         private bool F12PressedDown;
@@ -19,6 +19,7 @@ namespace eHacks_2018
         private bool F10PressedDown;
         private bool paintMode;
         private bool clickPressedDown;
+        private Vector2 mouseWorldPos;
 
         public LevelEdit(bool enable)
         {
@@ -27,6 +28,9 @@ namespace eHacks_2018
 
         public void checkState(Game1 master, Level level, List<Texture2D> sprites)
         {
+            mouseWorldPos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y); 
+            Vector2.Transform( ref mouseWorldPos, ref Camera.inverseMatrix, out mouseWorldPos);
+
             if (Keyboard.GetState().IsKeyDown(Keys.F12) && !F12PressedDown)
             {
                 if (enable)
@@ -114,7 +118,7 @@ namespace eHacks_2018
                 {
                     if (Mouse.GetState().LeftButton == ButtonState.Pressed && !clickPressedDown)
                     {
-                        level.thingList.Add(new Thing(new Vector2(Mouse.GetState().X, Mouse.GetState().Y), new System.Drawing.RectangleF(Mouse.GetState().X, Mouse.GetState().Y, 25, 25), sprites[0]));
+                        level.thingList.Add(new Wall(mouseWorldPos, new System.Drawing.RectangleF(mouseWorldPos.X, mouseWorldPos.Y, 25, 25), sprites[0]));
 
                         clickPressedDown = true;
                     }
@@ -127,7 +131,7 @@ namespace eHacks_2018
                 {
                     if (Mouse.GetState().LeftButton == ButtonState.Pressed)
                     {
-                        level.thingList.Add(new Thing(new Vector2(Mouse.GetState().X, Mouse.GetState().Y), new System.Drawing.RectangleF(Mouse.GetState().X, Mouse.GetState().Y, 25, 25), sprites[0]));
+                        level.thingList.Add(new Wall(mouseWorldPos, new System.Drawing.RectangleF(mouseWorldPos.X, mouseWorldPos.Y, 25, 25), sprites[0]));
 
                         clickPressedDown = true;
                     }

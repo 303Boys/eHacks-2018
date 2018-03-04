@@ -14,9 +14,9 @@ namespace eHacks_2018
     {
         float zoomValue;
         Vector2 position;
-        float direction;
         Viewport view;
-        public Matrix transformMatrix;
+        public static Matrix transformMatrix;
+        public static Matrix inverseMatrix;
         public RectangleF cameraRectangle;
 
         public Camera(Viewport currentView) {
@@ -85,20 +85,20 @@ namespace eHacks_2018
         }
         */
 
-        public void camUpdate(GameTime gameTime, Level level) {
+        public void camUpdate(GameTime gameTime, Level level, LevelEdit editMode) {
 
             //position = new Vector2(level.players[0].position.X + (level.players[0].sprite.Width / 2) - level.getSize().X / 2,
             //    level.players[0].position.Y + (level.players[0].sprite.Height / 2) - level.getSize().Y / 2);
             transformMatrix = Matrix.CreateScale(new Vector3(zoomValue, zoomValue, 0)) *
               Matrix.CreateTranslation(new Vector3(-cameraRectangle.X / 2, -cameraRectangle.Y / 2, 0));
 
-            if (level != null)
+            if (level != null && editMode.enable == false)
             {
-                position.X = (rightMostX(level) + leftMostX(level)) / 2;
+                // position.X = (rightMostX(level) + leftMostX(level)) / 2;
+                position.X = cameraRectangle.X / 2;
 
-
-                position.Y = (rightMostY(level) + leftMostY(level)) / 2;
-
+                //position.Y = (rightMostY(level) + leftMostY(level)) / 2;
+                position.Y = cameraRectangle.Y / 2;
 
 
 
@@ -118,20 +118,34 @@ namespace eHacks_2018
                 }
 
             }
+            else if (editMode.enable == true) {
+                transformMatrix = Matrix.CreateScale(new Vector3(1, 1, 1)) *
+              Matrix.CreateTranslation(new Vector3(-position.X, -position.Y, 0));
 
-            /*if (Keyboard.GetState().IsKeyDown(Keys.A)){
+                inverseMatrix = Matrix.Invert(transformMatrix);
+
+
+           
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.A))
+            {
                 position.X -= 5;
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.D)){
+            if (Keyboard.GetState().IsKeyDown(Keys.D))
+            {
                 position.X += 5;
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.S)){
+            if (Keyboard.GetState().IsKeyDown(Keys.S))
+            {
                 position.Y += 5;
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.W)){
+            if (Keyboard.GetState().IsKeyDown(Keys.W))
+            {
                 position.Y -= 5;
             }
-            */
+
+
             if (Keyboard.GetState().IsKeyDown(Keys.R))
             {
                 zoomValue += 0.1f;
