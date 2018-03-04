@@ -280,3 +280,10 @@
 /processorParam:Quality=Best
 /build:Sounds/Hit.wav
 
+#begin player_health.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:player_health.spritefont
+
