@@ -13,12 +13,14 @@ namespace eHacks_2018
         public Texture2D sprite2;
 		public string spriteName; //name of Thing's sprite
         public string sprite2Name;
+		public bool isActive = true;
 
 		public Thing(Vector2 pos, RectangleF rect, string name)
 		{
 			position = pos;
 			colbox = rect;
 			spriteName = name;
+			isActive = true;
 		}//end Thing constructor
 
         public Thing(Vector2 pos, RectangleF rect, Texture2D sprite)
