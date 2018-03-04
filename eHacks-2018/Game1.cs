@@ -153,7 +153,7 @@ namespace eHacks_2018
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if (GamePad.GetState(PlayerIndex.One).Buttons.RightShoulder == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Q))
+            if ( Keyboard.GetState().IsKeyDown(Keys.Q))
             {
                 levelLoader.CreateLevel(System.Reflection.Assembly.GetExecutingAssembly().Location + "../../Content/Levels/level1.level", sprites);
                 CurrentLevel = levelLoader.returnLevel();
