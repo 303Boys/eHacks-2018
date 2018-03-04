@@ -68,6 +68,7 @@ namespace eHacks_2018
             for(int i = 0; i < players.Count; i++)
             {
                 spriteBatch.Draw(players[i].sprite, players[i].getPosition(), XNAF.Color.White);
+                spriteBatch.DrawString(Fonts.healthFont, players[i].health.ToString(), new XNAF.Vector2(players[i].getPosition().X + 3, players[i].getPosition().Y - 15), XNAF.Color.Black);
             }
             //spriteBatch.End();
 
