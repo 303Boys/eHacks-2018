@@ -4,6 +4,7 @@ using XNAF = Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Media;
 
 namespace eHacks_2018
 {
@@ -97,6 +98,9 @@ namespace eHacks_2018
                     case 2: thingList.Add(new Door(thingPos[i], new RectangleF(thingPos[i].X, thingPos[i].Y, 25, 25), findTexture(textures, spriteNames[i]), findTexture(textures, spriteNames[spriteNames.Count - 1]))); break;
                 }
             }
+
+            MediaPlayer.Play(Sounds.returnSong("reg3"));
+            MediaPlayer.IsRepeating = true;
         }
 
         public string getName()

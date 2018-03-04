@@ -268,3 +268,9 @@
 /processorParam:Quality=Best
 /build:Sounds/Shoot.wav
 
+#begin Music/reg3.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/reg3.wav
+
