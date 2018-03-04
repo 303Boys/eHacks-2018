@@ -90,6 +90,8 @@ namespace eHacks_2018
             //camera = new Camera(GraphicsDevice.Viewport);
             graphics.PreferredBackBufferHeight = 600;
             graphics.PreferredBackBufferWidth = 800;
+            graphics.IsFullScreen = true;
+            graphics.ApplyChanges();
             menu = new MainMenu(this.levelLoader, this);
             IsMouseVisible = true;
 			listLoaded = false;
